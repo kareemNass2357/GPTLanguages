@@ -4,7 +4,9 @@ const IntroInput = ({ onDone }) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleDone = () => {
-    onDone(inputValue);
+    if (inputValue.trim()) {
+      onDone(inputValue);
+    }
   };
 
   return (

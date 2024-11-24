@@ -8,8 +8,9 @@ import MainLayout from './layouts/MainLayout';
 import Italian from './pages/Italian';
 import OpenAI from 'openai';
 import { useState } from 'react';
-
 //region OpenAI
+const model = 'gpt-4o-mini'
+
 let apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 const openaiConfig = {apiKey, dangerouslyAllowBrowser: true };
 console.log('OpenAI Key:', apiKey);
@@ -28,23 +29,50 @@ const App = () => {
     console.log('Next button clicked');
   };
 
+    
+  const [loading, setLoading] = useState(false);
+
   const fetchParagraph = async (description) => {
+    if (loading) return; // Prevent overlapping calls
+    setLoading(true);
     try {
+      console.log('Sending request to OpenAI with description:', description);
+      // const completion = await openai.chat.completions.create({
+      //   model: model,
+      //   messages: [
+      //     { role: 'system', content: 'you are a long paragraph writer...' },
+      //     { role: 'user', content: `The paragraph should be about: ${description}` },
+      //   ],
+      // });
+
+      // return { paragraph: completion.choices[0].message.content };
+      return { paragraph: 'This is a test paragraph' };
+    } catch (error) {
+      console.error('Error fetching paragraph from OpenAI:', error);
+      return { paragraph: 'Error fetching paragraph. Please try again.' };
+    } finally {
+      setLoading(false); // Ensure loading is reset
+    }
+  };
+
+  const fetchTranslation = async (paragraph) => {
+    try {
+      console.log('Sending request to OpenAI for translation of paragraph:', paragraph);
       const completion = await openai.chat.completions.create({
-        model: 'gpt-4',
+        model: model,
         messages: [
-          { role: 'system', content: 'you are a long paragraph writer. you will write as much as possible about everyday stuff.you should always use basic words, as if you are talking to a new speaker who is learning the language.  the user will describe a sitation or subject to talk about. and you will follow it. using everyday words that a person should know as a beginner in a language' },
+          { role: 'system', content: 'You are a translator. Translate the following paragraph to Italian. add * before each verb in the text' },
           {
             role: 'user',
-            content: `The paragraph should be about: ${description}`,
+            content: paragraph,
           },
         ],
       });
 
-      return { paragraph: completion.choices[0].message.content };
+      return { translation: completion.choices[0].message.content };
     } catch (error) {
-      console.error('Error fetching paragraph from OpenAI:', error);
-      return { paragraph: 'Error fetching paragraph. Please try again.' };
+      console.error('Error fetching translation from OpenAI:', error);
+      return { translation: 'Error fetching translation. Please try again.' };
     }
   };
 
@@ -59,6 +87,7 @@ const App = () => {
               handleIntroInputDone={handleIntroInputDone}
               handleNext={handleNext}
               fetchParagraph={fetchParagraph}
+              fetchTranslation={fetchTranslation}
             />
           }
         />
