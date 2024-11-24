@@ -7,22 +7,25 @@ import {
 import MainLayout from './layouts/MainLayout';
 import Italian from './pages/Italian';
 import OpenAI from 'openai';
+import { useCallback } from 'react';
 import { useState } from 'react';
 //region OpenAI
 const model = 'gpt-4o-mini'
 
 let apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 const openaiConfig = {apiKey, dangerouslyAllowBrowser: true };
-console.log('OpenAI Key:', apiKey);
 const openai = new OpenAI(openaiConfig);
 //endregion
 
 const App = () => {
   const [description, setDescription] = useState('');
 
-  const handleIntroInputDone = (data) => {
+  const handleIntroInputDone = async (data) => {
     console.log('Intro Input Data:', data);
     setDescription(data);
+    // Call fetchParagraph directly here
+    const paragraphData = await fetchParagraph(data);
+    console.log('Fetched Paragraph:', paragraphData);
   };
 
   const handleNext = () => {

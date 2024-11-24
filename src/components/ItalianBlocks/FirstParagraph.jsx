@@ -5,6 +5,8 @@ const FirstParagraph = ({ description, onNext, fetchParagraph }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (description.trim())
+    {
     const handleFetchParagraph = async () => {
       setLoading(true);
       try {
@@ -18,6 +20,7 @@ const FirstParagraph = ({ description, onNext, fetchParagraph }) => {
     };
 
     handleFetchParagraph();
+  }
   }, [description, fetchParagraph]);
 
   const handleRefresh = async () => {

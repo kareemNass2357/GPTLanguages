@@ -15,9 +15,11 @@ const Italian = ({ description, handleIntroInputDone, fetchParagraph, fetchTrans
       <IntroInput onDone={handleIntroInputDone} />
       {description && (
         <>
-          <FirstParagraph description={description} onNext={handleNext} fetchParagraph={fetchParagraph} />
-          {paragraph && <ParagraphTranslate paragraph={paragraph} fetchTranslation={fetchTranslation} />}
-        </>
+          {/* <FirstParagraph description={description} onNext={handleNext} fetchParagraph={fetchParagraph} /> */}
+          
+          </>
+          
+          // {paragraph && <ParagraphTranslate paragraph={paragraph} fetchTranslation={fetchTranslation} />}
       )}
     </section>
   );
