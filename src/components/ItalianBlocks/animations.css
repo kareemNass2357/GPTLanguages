@@ -86,3 +86,27 @@
 .hover-bg:hover {
   background-color: #f0f0f0;
 }
+
+.zigzag-row-left {
+  transform: translateX(-20px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.zigzag-row-right {
+  transform: translateX(20px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.zigzag-table:hover .zigzag-row-left,
+.zigzag-table:hover .zigzag-row-right {
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.zigzag-table tr {
+  transition: transform 0.3s ease-in-out;
+}
+
+.zigzag-table td {
+  transition: transform 0.3s ease-in-out;
+}

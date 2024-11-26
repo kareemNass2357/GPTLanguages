@@ -4,10 +4,10 @@ import './animations.css'; // Import the CSS file
 const ConjugationPanel = ({ tense, conjugations }) => (
   <div className="border border-gray-300 p-4 m-2 rounded shadow-md bg-white transform transition-transform hover:scale-105" style={{ width: '300px' }}>
     <h4 className="text-md font-bold mt-2 text-center text-blue-600">{tense.replace('_', ' ').toUpperCase()}</h4>
-    <table className="w-full mt-2">
+    <table className="w-full mt-2 zigzag-table">
       <tbody>
-        {Object.entries(conjugations).map(([pronoun, conjugation]) => (
-          <tr key={pronoun} className="hover:bg-gray-100 transition-colors">
+        {Object.entries(conjugations).map(([pronoun, conjugation], index) => (
+          <tr key={pronoun} className={`hover:bg-gray-100 transition-colors zigzag-row-${index % 2 === 0 ? 'left' : 'right'}`}>
             <td className="font-semibold text-right pr-2">{pronoun.charAt(0).toUpperCase() + pronoun.slice(1)}:</td>
             <td className="text-left pl-2">{conjugation || 'N/A'}</td>
           </tr>
