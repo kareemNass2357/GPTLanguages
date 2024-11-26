@@ -3,25 +3,28 @@ import React, { useState, useEffect } from 'react';
 const FirstParagraph = ({ description, onNext, fetchParagraph }) => {
   const [paragraph, setParagraph] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isFetched, setIsFetched] = useState(false); // Added to track if the paragraph is already fetched
+
+  const handleFetchParagraph = async () => {
+    console.log("FirstParagraph.jsx: Fetching paragraph with description:", description);
+    setLoading(true);
+    try {
+      const data = await fetchParagraph(description);
+      console.log("FirstParagraph.jsx: Fetched paragraph:", data);
+      setParagraph(data.paragraph);
+      setIsFetched(true); // Mark as fetched
+    } catch (error) {
+      console.error('Error fetching paragraph:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    if (description.trim())
-    {
-    const handleFetchParagraph = async () => {
-      setLoading(true);
-      try {
-        const data = await fetchParagraph(description);
-        setParagraph(data.paragraph);
-      } catch (error) {
-        console.error('Error fetching paragraph:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    handleFetchParagraph();
-  }
-  }, [description, fetchParagraph]);
+    if (description.trim() && !isFetched) {
+      handleFetchParagraph(); // Fetch only if not already fetched
+    }
+  }, [description, isFetched]); // Depend on `isFetched` to avoid repeated calls
 
   const handleRefresh = async () => {
     setLoading(true);
@@ -29,7 +32,7 @@ const FirstParagraph = ({ description, onNext, fetchParagraph }) => {
       const data = await fetchParagraph(description);
       setParagraph(data.paragraph);
     } catch (error) {
-      console.error('Error fetching paragraph:', error);
+      console.error('Error refreshing paragraph:', error);
     } finally {
       setLoading(false);
     }

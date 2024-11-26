@@ -5,6 +5,7 @@ const IntroInput = ({ onDone }) => {
 
   const handleDone = () => {
     if (inputValue.trim()) {
+      console.log('Done button was clicked with input:', inputValue);
       onDone(inputValue);
     }
   };
