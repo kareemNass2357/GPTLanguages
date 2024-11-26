@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useItalian } from '../../context/ItalianContext';
+import './animations.css'; // Import the CSS file
 
 const VERB_COLOR = 'green';
 
@@ -66,7 +67,7 @@ const ParagraphTranslate = () => {
   };
 
   return (
-    <div className="border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto">
+    <div className="border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation">
       <div className="text-lg font-bold mb-2">press on word to get translation</div>
       <div className="mb-2">
         {loading ? 'Loading...' : formatText(translation)}

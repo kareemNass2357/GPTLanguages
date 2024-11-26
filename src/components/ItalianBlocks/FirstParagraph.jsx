@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useItalian } from '../../context/ItalianContext';
+import './animations.css'; // Import the CSS file
 
 const FirstParagraph = () => {
   const {
@@ -56,7 +57,7 @@ const FirstParagraph = () => {
   };
 
   return (
-    <div className="w-full md:w-[70vw] border border-black p-5 m-2 rounded mx-auto overflow-auto">
+    <div className="w-full md:w-[70vw] border border-black p-5 m-2 rounded mx-auto overflow-auto expand-animation">
       <div className="mb-2">
         {loading ? (
           'Loading...'

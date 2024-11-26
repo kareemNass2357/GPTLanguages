@@ -8,6 +8,7 @@ import MainLayout from './layouts/MainLayout';
 import Italian from './pages/Italian';
 import React from 'react';
 import { ItalianProvider } from './context/ItalianContext';
+import './styles.css';
 
 const App = () => {
   const router = createBrowserRouter(
