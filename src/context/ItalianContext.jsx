@@ -46,8 +46,6 @@ export const ItalianProvider = ({ children }) => {
     subjunctive_past: VerbConjugation,
     conditional_present: VerbConjugation,
     imperative: VerbConjugation,
-    infinitive_present: z.string(),
-    gerund_present: z.string(),
   });
 
   const handleIntroInputDone = async (data) => {
@@ -124,9 +122,7 @@ export const ItalianProvider = ({ children }) => {
                - Subjunctive Present
                - Subjunctive Past
                - Conditional Present
-               - Imperative
-               - Infinitive Present
-               - Gerund Present`
+               - Imperative`
         },
         { role: 'user', content: word },
       ],
