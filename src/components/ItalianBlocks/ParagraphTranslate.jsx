@@ -2,45 +2,40 @@ import React, { useState } from 'react';
 
 const VERB_COLOR = 'green';
 
-const ParagraphTranslate = ({ paragraph, fetchTranslation, fetchAskingAWord }) => {
+const ParagraphTranslate = ({ paragraph, fetchTranslation, fetchAskingAWord, onVerbDetails }) => {
   const [translation, setTranslation] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedWord, setSelectedWord] = useState('');
-  const [error, setError] = useState(''); // New state variable for error handling
+  const [error, setError] = useState('');
+  const [clickedWords, setClickedWords] = useState({}); // Dictionary to store clicked words
 
   const handleTranslate = async () => {
     setLoading(true);
-    setError(''); // Clear previous errors
+    setError('');
     try {
       console.log('were in paragraphtranslate   in handletranslate ')
-      const data = await fetchTranslation(paragraph);
+      const data = await fetchTranslation(paragraph, { mode: 'no-cors' });
+      console.log('Translation data received:', data);
       setTranslation(data.translation);
     } catch (error) {
       console.error('Error fetching translation:', error);
-      setError('Error fetching translation'); // Set error message
+      setError('Error fetching translation');
     } finally {
       setLoading(false);
     }
   };
 
   const handleWordClick = async (word, color) => {
-    if (selectedWord === word) {
-      translateWord(word, color);
-    } else {
-      setSelectedWord(word);
-    }
+    setSelectedWord(word);
+    setClickedWords((prev) => ({ ...prev, [word]: true })); // Update clicked words dictionary
     try {
-     
+      const details = await fetchAskingAWord(word, color === VERB_COLOR, { mode: 'no-cors' });
+      console.log('Word details received:', details);
+      onVerbDetails(details); // Pass the details to the parent component
     } catch (error) {
       console.error('Error fetching word translation:', error);
-      setError('Error fetching word translation'); // Set error message
+      setError('Error fetching word translation');
     }
-  };
-
-  const translateWord = async (word, color) => {
-    const isVerb = color === VERB_COLOR;
-    const translation = await fetchAskingAWord(word, isVerb);
-    console.log(`Translation for ${word}:`, translation);
   };
 
   const formatText = (text) => {
@@ -64,7 +59,7 @@ const ParagraphTranslate = ({ paragraph, fetchTranslation, fetchAskingAWord }) =
       <div className="mb-2">
         {loading ? 'Loading...' : formatText(translation)}
       </div>
-      {error && <div className="text-red-500">{error}</div>} {/* Display error message */}
+      {error && <div className="text-red-500">{error}</div>}
       <button onClick={handleTranslate} className="px-4 py-2 bg-blue-500 text-white rounded">
         Translate
       </button>

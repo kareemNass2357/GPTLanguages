@@ -96,6 +96,18 @@ const App = () => {
   };
 
   const searchVerb = async (word) => {
+    
+    const handleCompletion = (completion) => {
+      const message = completion.choices[0]?.message;
+      if (message?.parsed) {
+        return {
+          analysis: message.parsed.analysis,
+          presentTenseConjugation: message.parsed.present,
+        };
+      } else {
+        return { refusal: message.refusal };
+      }
+    };
     const completion = await openai.beta.chat.completions.parse({
       model: 'gpt-4o-2024-08-06',
       messages: [
@@ -114,14 +126,9 @@ const App = () => {
       ),
     });
 
-    const message = completion.choices[0]?.message;
-    if (message?.parsed) {
-      console.log('Analysis:', message.parsed.analysis);
-      console.log('Present Tense Conjugation:', message.parsed.present);
-    } else {
-      console.log(message.refusal);
-    }
+    return handleCompletion(completion);
   };
+
 
   const fetchAskingAWord = async (word, isVerb) => {
     if (isVerb) {
