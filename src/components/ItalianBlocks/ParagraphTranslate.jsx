@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 
 const VERB_COLOR = 'green';
 
-const ParagraphTranslate = ({ paragraph, fetchTranslation, fetchAskingAWord, onVerbDetails }) => {
+const ParagraphTranslate = ({ paragraph, fetchTranslation, fetchAskingAWord, onVerbDetails, onVerbDetailsLoading, clickedWords, setClickedWords }) => {
   const [translation, setTranslation] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedWord, setSelectedWord] = useState('');
   const [error, setError] = useState('');
-  const [clickedWords, setClickedWords] = useState({}); // Dictionary to store clicked words
 
   const handleTranslate = async () => {
     setLoading(true);
@@ -28,6 +27,7 @@ const ParagraphTranslate = ({ paragraph, fetchTranslation, fetchAskingAWord, onV
   const handleWordClick = async (word, color) => {
     setSelectedWord(word);
     setClickedWords((prev) => ({ ...prev, [word]: true })); // Update clicked words dictionary
+    onVerbDetailsLoading(); // Trigger loading state
     try {
       const details = await fetchAskingAWord(word, color === VERB_COLOR, { mode: 'no-cors' });
       console.log('Word details received:', details);

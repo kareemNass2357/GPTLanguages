@@ -7,6 +7,7 @@ import VerbDetails from '../components/ItalianBlocks/VerbDetails'; // Import the
 const Italian = ({ description, handleIntroInputDone, fetchParagraph, fetchTranslation, fetchAskingAWord }) => {
   const [paragraph, setParagraph] = useState('');
   const [verbDetails, setVerbDetails] = useState(null); // State for verb details
+  const [verbDetailsLoading, setVerbDetailsLoading] = useState(false); // State for loading verb details
   const [clickedWords, setClickedWords] = useState({}); // State for clicked words
 
   const paragraphAssigned = (paragraph) => {
@@ -15,6 +16,11 @@ const Italian = ({ description, handleIntroInputDone, fetchParagraph, fetchTrans
 
   const handleVerbDetails = (details) => {
     setVerbDetails(details);
+    setVerbDetailsLoading(false); // Reset loading state
+  };
+
+  const handleVerbDetailsLoading = () => {
+    setVerbDetailsLoading(true); // Set loading state
   };
 
   return (
@@ -31,10 +37,12 @@ const Italian = ({ description, handleIntroInputDone, fetchParagraph, fetchTrans
           fetchTranslation={fetchTranslation}
           fetchAskingAWord={fetchAskingAWord}
           onVerbDetails={handleVerbDetails} // Pass the handler to ParagraphTranslate
+          onVerbDetailsLoading={handleVerbDetailsLoading} // Pass the loading handler to ParagraphTranslate
           clickedWords={clickedWords} // Pass the clicked words state
           setClickedWords={setClickedWords} // Pass the setter for clicked words
         />
       )}
+      {verbDetailsLoading && <p>Loading verb details...</p>} {/* Show loading message */}
       {verbDetails && <VerbDetails details={verbDetails} />} {/* Render VerbDetails if available */}
     </section>
   );
