@@ -56,6 +56,7 @@ const ParagraphTranslate = ({ paragraph, fetchTranslation, fetchAskingAWord, onV
 
   return (
     <div className="border border-black p-5 m-2 rounded">
+      <div className="text-lg font-bold mb-2">press on word to get translation</div>
       <div className="mb-2">
         {loading ? 'Loading...' : formatText(translation)}
       </div>

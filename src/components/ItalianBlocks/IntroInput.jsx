@@ -12,6 +12,7 @@ const IntroInput = ({ onDone }) => {
 
   return (
     <div className="border border-black p-5 m-2 rounded">
+      <p className="mb-2">Please enter a topic. A paragraph will be built about it.</p>
       <input
         type="text"
         value={inputValue}
