@@ -12,7 +12,7 @@ const VerbDetails = ({ details }) => {
   console.log('Present:', presentTenseConjugation);
 
   return (
-    <div className="border border-black p-5 m-2 rounded">
+    <div className="border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto">
       <h3 className="text-lg font-bold">Verb Analysis</h3>
       <p><strong>Tense:</strong> {analysis.tense || 'N/A'}</p>
       <p><strong>Original Form:</strong> {analysis.original_form || 'N/A'}</p>

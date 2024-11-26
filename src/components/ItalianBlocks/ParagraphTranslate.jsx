@@ -55,15 +55,17 @@ const ParagraphTranslate = ({ paragraph, fetchTranslation, fetchAskingAWord, onV
   };
 
   return (
-    <div className="border border-black p-5 m-2 rounded">
+    <div className="border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto">
       <div className="text-lg font-bold mb-2">press on word to get translation</div>
       <div className="mb-2">
         {loading ? 'Loading...' : formatText(translation)}
       </div>
       {error && <div className="text-red-500">{error}</div>}
-      <button onClick={handleTranslate} className="px-4 py-2 bg-blue-500 text-white rounded">
-        Translate
-      </button>
+      <div className="flex justify-center mt-2">
+        <button onClick={handleTranslate} className="px-4 py-2 bg-blue-500 text-white rounded">
+          Translate
+        </button>
+      </div>
     </div>
   );
 };

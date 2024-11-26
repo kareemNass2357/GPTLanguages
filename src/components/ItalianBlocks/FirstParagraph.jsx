@@ -47,7 +47,7 @@ const FirstParagraph = ({ description, onNext, fetchParagraph }) => {
   };
 
   return (
-    <div className="w-3/5 border border-black p-5 m-2 rounded mx-auto">
+    <div className="w-full md:w-[70vw] border border-black p-5 m-2 rounded mx-auto overflow-auto">
       <div className="mb-2">
         {loading ? (
           'Loading...'
