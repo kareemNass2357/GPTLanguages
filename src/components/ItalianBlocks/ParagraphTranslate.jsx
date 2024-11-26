@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
+import { useItalian } from '../../context/ItalianContext';
 
 const VERB_COLOR = 'green';
 
-const ParagraphTranslate = ({ paragraph, fetchTranslation, fetchAskingAWord, onVerbDetails, onVerbDetailsLoading, clickedWords, setClickedWords }) => {
+const ParagraphTranslate = () => {
+  const {
+    paragraph,
+    fetchTranslation,
+    fetchAskingAWord,
+    setVerbDetails,
+    setVerbDetailsLoading,
+    clickedWords,
+    setClickedWords,
+  } = useItalian();
+
   const [translation, setTranslation] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedWord, setSelectedWord] = useState('');
@@ -27,11 +38,11 @@ const ParagraphTranslate = ({ paragraph, fetchTranslation, fetchAskingAWord, onV
   const handleWordClick = async (word, color) => {
     setSelectedWord(word);
     setClickedWords((prev) => ({ ...prev, [word]: true })); // Update clicked words dictionary
-    onVerbDetailsLoading(); // Trigger loading state
+    setVerbDetailsLoading(); // Trigger loading state
     try {
       const details = await fetchAskingAWord(word, color === VERB_COLOR, { mode: 'no-cors' });
       console.log('Word details received:', details);
-      onVerbDetails(details); // Pass the details to the parent component
+      setVerbDetails(details); // Pass the details to the parent component
     } catch (error) {
       console.error('Error fetching word translation:', error);
       setError('Error fetching word translation');

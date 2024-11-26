@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useItalian } from '../../context/ItalianContext';
 
-const FirstParagraph = ({ description, onNext, fetchParagraph }) => {
-  const [paragraph, setParagraph] = useState('');
+const FirstParagraph = () => {
+  const {
+    description,
+    setParagraph,
+    fetchParagraph,
+  } = useItalian();
+
+  const [paragraph, setLocalParagraph] = useState('');
   const [loading, setLoading] = useState(false);
   const [isFetched, setIsFetched] = useState(false); // Added to track if the paragraph is already fetched
 
@@ -11,6 +18,7 @@ const FirstParagraph = ({ description, onNext, fetchParagraph }) => {
     try {
       const data = await fetchParagraph(description);
       console.log("FirstParagraph.jsx: Fetched paragraph:", data);
+      setLocalParagraph(data.paragraph);
       setParagraph(data.paragraph);
       setIsFetched(true); // Mark as fetched
     } catch (error) {
@@ -30,6 +38,7 @@ const FirstParagraph = ({ description, onNext, fetchParagraph }) => {
     setLoading(true);
     try {
       const data = await fetchParagraph(description);
+      setLocalParagraph(data.paragraph);
       setParagraph(data.paragraph);
     } catch (error) {
       console.error('Error refreshing paragraph:', error);
@@ -39,11 +48,11 @@ const FirstParagraph = ({ description, onNext, fetchParagraph }) => {
   };
 
   const handleNext = () => {
-    onNext(paragraph);
+    setParagraph(paragraph);
   };
 
   const handleParagraphChange = (event) => {
-    setParagraph(event.target.value);
+    setLocalParagraph(event.target.value);
   };
 
   return (
