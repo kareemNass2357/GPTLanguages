@@ -1,16 +1,25 @@
 import React from 'react';
 import './animations.css'; // Import the CSS file
 
+const ConjugationPanel = ({ tense, conjugations }) => (
+  <div className="border border-gray-300 p-4 m-2 rounded shadow-md">
+    <h4 className="text-md font-bold mt-2">{tense.replace('_', ' ').toUpperCase()}</h4>
+    {Object.entries(conjugations).map(([pronoun, conjugation]) => (
+      <p key={pronoun}><strong>{pronoun.charAt(0).toUpperCase() + pronoun.slice(1)}:</strong> {conjugation || 'N/A'}</p>
+    ))}
+  </div>
+);
+
 const VerbDetails = ({ details }) => {
-  if (!details || !details.analysis) {
+  if (!details) {
     console.log('No details or analysis found:', details);
     return <p>Loading verb details...</p>; // Render loading message
   }
   console.log('Details from verbdetails component:', details);
 
-  const { analysis, presentTenseConjugation } = details;
+  const { analysis, ...conjugations } = details;
   console.log('Analysis:', analysis);
-  console.log('Present:', presentTenseConjugation);
+  console.log('Conjugations:', conjugations);
 
   return (
     <div className="border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation">
@@ -19,19 +28,9 @@ const VerbDetails = ({ details }) => {
       <p><strong>Original Form:</strong> {analysis.original_form || 'N/A'}</p>
       <p><strong>Grammatical Usage:</strong> {analysis.grammatical_usage || 'N/A'}</p>
       <p><strong>Example Sentence:</strong> {analysis.example_sentence || 'N/A'}</p>
-      <h4 className="text-md font-bold mt-2">Present Tense Conjugation</h4>
-      {presentTenseConjugation ? (
-        <>
-          <p><strong>Io:</strong> {presentTenseConjugation.io || 'N/A'}</p>
-          <p><strong>Tu:</strong> {presentTenseConjugation.tu || 'N/A'}</p>
-          <p><strong>Lui:</strong> {presentTenseConjugation.lui || 'N/A'}</p>
-          <p><strong>Noi:</strong> {presentTenseConjugation.noi || 'N/A'}</p>
-          <p><strong>Voi:</strong> {presentTenseConjugation.voi || 'N/A'}</p>
-          <p><strong>Loro:</strong> {presentTenseConjugation.loro || 'N/A'}</p>
-        </>
-      ) : (
-        <p>Present tense conjugation data is missing.</p>
-      )}
+      {Object.keys(conjugations).map((tense) => (
+        <ConjugationPanel key={tense} tense={tense} conjugations={conjugations[tense]} />
+      ))}
     </div>
   );
 };

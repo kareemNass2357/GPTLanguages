@@ -20,6 +20,15 @@ export const ItalianProvider = ({ children }) => {
   const openaiConfig = { apiKey, dangerouslyAllowBrowser: true };
   const openai = new OpenAI(openaiConfig);
 
+  const VerbConjugation = z.object({
+    io: z.string(),
+    tu: z.string(),
+    lui: z.string(),
+    noi: z.string(),
+    voi: z.string(),
+    loro: z.string(),
+  });
+
   const VerbAnalysisResponse = z.object({
     tense: z.string(),
     original_form: z.string(),
@@ -27,13 +36,18 @@ export const ItalianProvider = ({ children }) => {
     example_sentence: z.string(),
   });
 
-  const PresentTenseConjugation = z.object({
-    io: z.string(),
-    tu: z.string(),
-    lui: z.string(),
-    noi: z.string(),
-    voi: z.string(),
-    loro: z.string(),
+  const VerbFullConjugation = z.object({
+    analysis: VerbAnalysisResponse,
+    present: VerbConjugation,
+    past: VerbConjugation,
+    imperfect: VerbConjugation,
+    future_simple: VerbConjugation,
+    subjunctive_present: VerbConjugation,
+    subjunctive_past: VerbConjugation,
+    conditional_present: VerbConjugation,
+    imperative: VerbConjugation,
+    infinitive_present: z.string(),
+    gerund_present: z.string(),
   });
 
   const handleIntroInputDone = async (data) => {
@@ -88,30 +102,35 @@ export const ItalianProvider = ({ children }) => {
     const handleCompletion = (completion) => {
       const message = completion.choices[0]?.message;
       if (message?.parsed) {
-        return {
-          analysis: message.parsed.analysis,
-          presentTenseConjugation: message.parsed.present,
-        };
+        console.log('Full conjugation JSON:', message.parsed); // Print the full conjugation JSON
+        return message.parsed;
       } else {
         return { refusal: message.refusal };
       }
     };
+
     const completion = await openai.beta.chat.completions.parse({
       model: 'gpt-4o-2024-08-06',
       messages: [
         {
           role: 'system',
-          content: 'You are a helpful language tutor. Analyze the following Italian verb and provide its tense, original form, grammatical usage, and use it in a simple example sentence. Also, provide the present tense conjugation for io, tu, lui, noi, voi, loro.',
+          content: `You are a helpful language tutor. Analyze the following Italian verb and provide:
+            1. Its basic analysis (tense, original form, usage, example)
+            2. Full conjugation in all the following forms:
+               - Present tense
+               - Past tense
+               - Imperfect
+               - Future Simple
+               - Subjunctive Present
+               - Subjunctive Past
+               - Conditional Present
+               - Imperative
+               - Infinitive Present
+               - Gerund Present`
         },
         { role: 'user', content: word },
       ],
-      response_format: zodResponseFormat(
-        z.object({
-          analysis: VerbAnalysisResponse,
-          present: PresentTenseConjugation,
-        }),
-        'verbAnalysis'
-      ),
+      response_format: zodResponseFormat(VerbFullConjugation, 'verbAnalysis'),
     });
 
     return handleCompletion(completion);
