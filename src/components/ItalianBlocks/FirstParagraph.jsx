@@ -7,6 +7,7 @@ const FirstParagraph = () => {
     description,
     setParagraph,
     fetchParagraph,
+    nightMode,
   } = useItalian();
 
   const [paragraph, setLocalParagraph] = useState('');
@@ -48,16 +49,12 @@ const FirstParagraph = () => {
     }
   };
 
-  const handleNext = () => {
-    setParagraph(paragraph);
-  };
-
   const handleParagraphChange = (event) => {
     setLocalParagraph(event.target.value);
   };
 
   return (
-    <div className="w-full md:w-[70vw] border border-black p-5 m-2 rounded mx-auto overflow-auto expand-animation">
+    <div className={`w-full md:w-[70vw] border border-black p-5 m-2 rounded mx-auto overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
       <div className="mb-2">
         {loading ? (
           'Loading...'
@@ -71,11 +68,8 @@ const FirstParagraph = () => {
         )}
       </div>
       <div className="flex justify-center mt-2">
-        <button onClick={handleRefresh} className="px-4 py-2 bg-blue-500 text-white rounded mr-2">
+        <button onClick={handleRefresh} className="px-4 py-2 bg-blue-500 text-white rounded">
           Refresh
-        </button>
-        <button onClick={handleNext} className="px-3 py-2 bg-green-500 text-white rounded">
-          Next
         </button>
       </div>
     </div>

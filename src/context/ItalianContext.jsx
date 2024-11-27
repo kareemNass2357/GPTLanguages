@@ -14,6 +14,7 @@ export const ItalianProvider = ({ children }) => {
   const [verbDetailsLoading, setVerbDetailsLoading] = useState(false);
   const [clickedWords, setClickedWords] = useState({});
   const [loading, setLoading] = useState(false);
+  const [nightMode, setNightMode] = useState(false);
 
   const model = 'gpt-4o-mini';
   let apiKey = import.meta.env.VITE_OPENAI_API_KEY;
@@ -157,6 +158,10 @@ export const ItalianProvider = ({ children }) => {
     }
   };
 
+  const toggleNightMode = () => {
+    setNightMode(!nightMode);
+  };
+
   return (
     <ItalianContext.Provider
       value={{
@@ -165,6 +170,7 @@ export const ItalianProvider = ({ children }) => {
         verbDetails,
         verbDetailsLoading,
         clickedWords,
+        nightMode,
         setDescription,
         setParagraph,
         setVerbDetails,
@@ -174,6 +180,7 @@ export const ItalianProvider = ({ children }) => {
         fetchParagraph,
         fetchTranslation,
         fetchAskingAWord,
+        toggleNightMode,
       }}
     >
       {children}

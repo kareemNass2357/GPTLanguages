@@ -13,6 +13,7 @@ const ParagraphTranslate = () => {
     setVerbDetailsLoading,
     clickedWords,
     setClickedWords,
+    nightMode,
   } = useItalian();
 
   const [translation, setTranslation] = useState('');
@@ -53,7 +54,7 @@ const ParagraphTranslate = () => {
   const formatText = (text) => {
     return text.split(' ').map((word, index) => {
       const displayWord = word.startsWith('*') ? word.substring(1) : word;
-      const color = word.startsWith('*') ? VERB_COLOR : 'black';
+      const color = word.startsWith('*') ? VERB_COLOR : nightMode ? '#ecf0f1' : 'black';
       return (
         <span
           key={index}
@@ -67,7 +68,7 @@ const ParagraphTranslate = () => {
   };
 
   return (
-    <div className="border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation">
+    <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
       <div className="text-lg font-bold mb-2">press on word to get translation</div>
       <div className="mb-2">
         {loading ? 'Loading...' : formatText(translation)}

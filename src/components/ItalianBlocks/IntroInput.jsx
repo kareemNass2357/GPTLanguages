@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
 
 const IntroInput = ({ onDone }) => {
   const [inputValue, setInputValue] = useState('');
+  const { nightMode } = useItalian();
 
   const handleDone = () => {
     if (inputValue.trim()) {
@@ -12,7 +14,7 @@ const IntroInput = ({ onDone }) => {
   };
 
   return (
-    <div className="border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation">
+    <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
       <p className="mb-2">Please enter a topic. A paragraph will be built about it.</p>
       <input
         type="text"

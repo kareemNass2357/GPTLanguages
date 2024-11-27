@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
 
 const ConjugationPanel = ({ tense, conjugations }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { nightMode } = useItalian();
 
   const togglePanel = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className={`border border-gray-300 p-4 m-2 rounded shadow-md bg-white transform transition-transform hover:scale-105 ${isOpen ? 'panel-open' : 'panel-closed'}`} style={{ flex: '1 1 calc(33.333% - 1rem)', maxWidth: 'calc(33.333% - 1rem)' }}>
+    <div className={`border border-gray-300 p-4 m-2 rounded shadow-md transform transition-transform hover:scale-105 ${isOpen ? 'panel-open' : 'panel-closed'} ${nightMode ? 'night-mode' : ''}`} style={{ flex: '1 1 calc(33.333% - 1rem)', maxWidth: 'calc(33.333% - 1rem)' }}>
       <h4 className="text-md font-bold text-center text-blue-600 cursor-pointer" onClick={togglePanel} style={{ paddingTop: '5px' }}>
         {tense.replace('_', ' ').toUpperCase()}
       </h4>
@@ -30,6 +32,8 @@ const ConjugationPanel = ({ tense, conjugations }) => {
 };
 
 const VerbDetails = ({ details }) => {
+  const { nightMode } = useItalian();
+
   if (!details) {
     console.log('No details or analysis found:', details);
     return <p>Loading verb details...</p>; // Render loading message
@@ -41,7 +45,7 @@ const VerbDetails = ({ details }) => {
   console.log('Conjugations:', conjugations);
 
   return (
-    <div className="border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation bg-gray-50">
+    <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
       <h3 className="text-lg font-bold text-center text-red-600">Verb Analysis</h3>
       <p className="text-center"><strong>Tense:</strong> {analysis.tense || 'N/A'}</p>
       <p className="text-center"><strong>Original Form:</strong> {analysis.original_form || 'N/A'}</p>
