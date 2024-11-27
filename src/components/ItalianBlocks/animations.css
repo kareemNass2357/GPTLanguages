@@ -110,3 +110,28 @@
 .zigzag-table td {
   transition: transform 0.3s ease-in-out;
 }
+
+.panel-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.panel-open .panel-content {
+  max-height: 300px; /* Adjust as needed */
+}
+
+.panel-closed .panel-content {
+  max-height: 0;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.flex-wrap > div {
+  flex: 1 1 calc(33.333% - 1rem);
+  max-width: calc(33.333% - 1rem);
+  box-sizing: border-box;
+}
