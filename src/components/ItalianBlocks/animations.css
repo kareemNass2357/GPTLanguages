@@ -128,10 +128,16 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
+}           
 
 .flex-wrap > div {
   flex: 1 1 calc(33.333% - 1rem);
   max-width: calc(33.333% - 1rem);
   box-sizing: border-box;
+}
+
+.input-box {
+  width: 55%;
+  margin: 0 auto;
+  display: block;
 }

@@ -18,7 +18,7 @@ const IntroInput = ({ onDone }) => {
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        className="w-full p-2 mb-2 border border-gray-400 rounded" // Add border styling here
+        className="input-box p-2 mb-2 border border-gray-400 rounded" // Use input-box class here
       />
       <div className="flex justify-center mt-2">
         <button onClick={handleDone} className="px-4 py-2 bg-blue-500 text-white rounded">
