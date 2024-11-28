@@ -24,7 +24,7 @@ const IntroInput = ({ onDone }) => {
       />
       <div className="flex justify-center mt-2">
         <button onClick={handleDone} className="px-4 py-2 bg-blue-500 text-white rounded">
-          Done
+          Next
         </button>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
 
@@ -13,6 +13,7 @@ const FirstParagraph = () => {
   const [paragraph, setLocalParagraph] = useState('');
   const [loading, setLoading] = useState(false);
   const [isFetched, setIsFetched] = useState(false); // Added to track if the paragraph is already fetched
+  const textareaRef = useRef(null);
 
   const handleFetchParagraph = async () => {
     console.log("FirstParagraph.jsx: Fetching paragraph with description:", description);
@@ -36,6 +37,13 @@ const FirstParagraph = () => {
     }
   }, [description, isFetched]); // Depend on `isFetched` to avoid repeated calls
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [paragraph]);
+
   const handleRefresh = async () => {
     setLoading(true);
     try {
@@ -51,6 +59,10 @@ const FirstParagraph = () => {
 
   const handleParagraphChange = (event) => {
     setLocalParagraph(event.target.value);
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
   };
 
   return (
@@ -60,10 +72,12 @@ const FirstParagraph = () => {
           'Loading...'
         ) : (
           <textarea
+            ref={textareaRef}
             value={paragraph}
             onChange={handleParagraphChange}
-            className="w-full h-60 p-2 border rounded resize-none"
+            className="w-full p-2 border rounded resize-none"
             readOnly={false}
+            style={{ overflow: 'hidden' }}
           />
         )}
       </div>
