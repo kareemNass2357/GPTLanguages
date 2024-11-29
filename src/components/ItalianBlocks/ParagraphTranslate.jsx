@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
+import VerbDetails from './VerbDetails';
+import WordDetails from './WordDetails';
 
 const VERB_COLOR = 'green';
 
@@ -11,15 +13,19 @@ const ParagraphTranslate = () => {
     fetchAskingAWord,
     setVerbDetails,
     setVerbDetailsLoading,
+    setWordDetails,
     clickedWords,
     setClickedWords,
     nightMode,
+    verbDetails,
+    wordDetails,
   } = useItalian();
 
   const [translation, setTranslation] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedWord, setSelectedWord] = useState('');
   const [error, setError] = useState('');
+  const [wordLoading, setWordLoading] = useState(false);
 
   const handleTranslate = async () => {
     setLoading(true);
@@ -40,14 +46,19 @@ const ParagraphTranslate = () => {
   const handleWordClick = async (word, color) => {
     setSelectedWord(word);
     setClickedWords((prev) => ({ ...prev, [word]: true })); // Update clicked words dictionary
-    setVerbDetailsLoading(); // Trigger loading state
-    try {
-      const details = await fetchAskingAWord(word, color === VERB_COLOR, { mode: 'no-cors' });
-      console.log('Word details received:', details);
-      setVerbDetails(details); // Pass the details to the parent component
-    } catch (error) {
-      console.error('Error fetching word translation:', error);
-      setError('Error fetching word translation');
+    const isVerb = color === VERB_COLOR;
+    if (isVerb) {
+      setVerbDetailsLoading(true);
+      setWordDetails(null); // Clear word details when a verb is clicked
+      const verbDetails = await fetchAskingAWord(word, true);
+      setVerbDetails(verbDetails);
+      setVerbDetailsLoading(false);
+    } else {
+      setWordLoading(true);
+      setVerbDetails(null); // Clear verb details when a word is clicked
+      const wordDetails = await fetchAskingAWord(word, false);
+      setWordDetails(wordDetails);
+      setWordLoading(false);
     }
   };
 
@@ -79,6 +90,8 @@ const ParagraphTranslate = () => {
           Translate
         </button>
       </div>
+      {/* Render VerbDetails or WordDetails based on the state */}
+      {wordLoading ? <p>Loading word details...</p> : verbDetails ? <VerbDetails details={verbDetails} /> : wordDetails ? <WordDetails /> : null}
     </div>
   );
 };

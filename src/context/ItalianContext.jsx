@@ -15,12 +15,18 @@ export const ItalianProvider = ({ children }) => {
   const [clickedWords, setClickedWords] = useState({});
   const [loading, setLoading] = useState(false);
   const [nightMode, setNightMode] = useState(false);
+  const [wordDetails, setWordDetails] = useState(null);
 
   const model = 'gpt-4o-mini';
   let apiKey = import.meta.env.VITE_OPENAI_API_KEY;
   const openaiConfig = { apiKey, dangerouslyAllowBrowser: true };
   const openai = new OpenAI(openaiConfig);
 
+  const wordTranslation = z.object({
+    translation: z.string(),
+    example_in_a_sentence: z.string(),
+    second_example: z.string(),
+  });
   const VerbConjugation = z.object({
     io: z.string(),
     tu: z.string(),
@@ -48,7 +54,15 @@ export const ItalianProvider = ({ children }) => {
     conditional_present: VerbConjugation,
     imperative: VerbConjugation,
   });
-
+  const handleCompletionWithFormat = (completion) => {
+    const message = completion.choices[0]?.message;
+    if (message?.parsed) {
+      console.log('Full conjugation JSON:', message.parsed); // Print the full conjugation JSON
+      return message.parsed;
+    } else {
+      return { refusal: message.refusal };
+    }
+  };
   const handleIntroInputDone = async (data) => {
     console.log('italian context jsx    descriptioh set to  Data:', data);
     setDescription(data);
@@ -98,18 +112,10 @@ export const ItalianProvider = ({ children }) => {
   };
 
   const searchVerb = async (word) => {
-    const handleCompletion = (completion) => {
-      const message = completion.choices[0]?.message;
-      if (message?.parsed) {
-        console.log('Full conjugation JSON:', message.parsed); // Print the full conjugation JSON
-        return message.parsed;
-      } else {
-        return { refusal: message.refusal };
-      }
-    };
+
 
     const completion = await openai.beta.chat.completions.parse({
-      model: 'gpt-4o-2024-08-06',
+      model: model,
       messages: [
         {
           role: 'system',
@@ -130,14 +136,10 @@ export const ItalianProvider = ({ children }) => {
       response_format: zodResponseFormat(VerbFullConjugation, 'verbAnalysis'),
     });
 
-    return handleCompletion(completion);
+    return handleCompletionWithFormat(completion);
   };
 
-  const fetchAskingAWord = async (word, isVerb) => {
-    if (isVerb) {
-      return await searchVerb(word);
-    }
-
+  const searchWord = async (word) => {
     try {
       console.log(`Sending request to OpenAI for word translation:`, word);
       const completion = await openai.chat.completions.create({
@@ -149,13 +151,20 @@ export const ItalianProvider = ({ children }) => {
             content: word,
           },
         ],
+        response_format: zodResponseFormat(wordTranslation, 'wordTranslation'),
       });
 
-      return completion.choices[0].message.content;
+      return handleCompletionWithFormat(completion);
     } catch (error) {
       console.error('Error fetching word translation from OpenAI:', error);
       throw error;
     }
+  }
+  const fetchAskingAWord = async (word, isVerb) => {
+    if (isVerb) {
+      return await searchVerb(word);
+    }
+    return await searchWord(word);
   };
 
   const toggleNightMode = () => {
@@ -171,11 +180,13 @@ export const ItalianProvider = ({ children }) => {
         verbDetailsLoading,
         clickedWords,
         nightMode,
+        wordDetails,
         setDescription,
         setParagraph,
         setVerbDetails,
         setVerbDetailsLoading,
         setClickedWords,
+        setWordDetails,
         handleIntroInputDone,
         fetchParagraph,
         fetchTranslation,

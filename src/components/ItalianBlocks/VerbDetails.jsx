@@ -43,21 +43,20 @@ const VerbDetails = ({ details }) => {
   const { analysis, ...conjugations } = details;
   console.log('Analysis:', analysis);
   console.log('Conjugations:', conjugations);
-
-  return (
-    <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
-      <h3 className="text-lg font-bold text-center text-red-600">Verb Analysis</h3>
-      <p className="text-center"><strong>Tense:</strong> {analysis.tense || 'N/A'}</p>
-      <p className="text-center"><strong>Original Form:</strong> {analysis.original_form || 'N/A'}</p>
-      <p className="text-center"><strong>Grammatical Usage:</strong> {analysis.grammatical_usage || 'N/A'}</p>
-      <p className="text-center"><strong>Example Sentence:</strong> {analysis.example_sentence || 'N/A'}</p>
-      <div className="flex flex-wrap justify-center">
-        {Object.keys(conjugations).map((tense) => (
-          <ConjugationPanel key={tense} tense={tense} conjugations={conjugations[tense]} />
-        ))}
-      </div>
+  // show me all the keys in the anlysis object
+return (
+  <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
+    <h3 className="text-lg font-bold text-center text-red-600">Verb Analysis</h3>
+    {analysis && analysis.tense && <p className="text-center"><strong>Tense:</strong> {analysis.tense}</p>}
+    {analysis && analysis.original_form && <p className="text-center"><strong>Original Form:</strong> {analysis.original_form}</p>}
+    {analysis && analysis.grammatical_usage && <p className="text-center"><strong>Grammatical Usage:</strong> {analysis.grammatical_usage}</p>}
+    {analysis && analysis.example_sentence && <p className="text-center"><strong>Example Sentence:</strong> {analysis.example_sentence}</p>}
+    <div className="flex flex-wrap justify-center">
+      {Object.keys(conjugations).map((tense) => (
+        <ConjugationPanel key={tense} tense={tense} conjugations={conjugations[tense]} />
+      ))}
     </div>
-  );
-};
-
+  </div>
+);
+}
 export default VerbDetails;
