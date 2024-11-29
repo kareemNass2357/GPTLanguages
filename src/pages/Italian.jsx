@@ -2,19 +2,20 @@ import React from 'react';
 import IntroInput from '../components/ItalianBlocks/IntroInput';
 import FirstParagraph from '../components/ItalianBlocks/FirstParagraph';
 import ParagraphTranslate from '../components/ItalianBlocks/ParagraphTranslate';
-import VerbDetails from '../components/ItalianBlocks/VerbDetails';
+import TranslateWord from '../components/ItalianBlocks/TranslateWord'; // Import the new component
 import { useItalian } from '../context/ItalianContext';
 
 const Italian = () => {
   const {
     description,
     paragraph,
-    verbDetails,
     verbDetailsLoading,
     handleIntroInputDone,
     nightMode,
     toggleNightMode,
     setParagraph,
+    selectedWord,
+    isVerb,
   } = useItalian();
 
   const paragraphAssigned = (paragraph) => {
@@ -39,7 +40,7 @@ const Italian = () => {
           <ParagraphTranslate />
         )}
         {verbDetailsLoading && <p>Loading verb details...</p>}
-        {verbDetails && <VerbDetails details={verbDetails} />}
+        {selectedWord && <TranslateWord word={selectedWord} isVerb={isVerb} />} {/* Use TranslateWord component */}
       </section>
     </div>
   );

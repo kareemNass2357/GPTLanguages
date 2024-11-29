@@ -16,6 +16,8 @@ export const ItalianProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [nightMode, setNightMode] = useState(false);
   const [wordDetails, setWordDetails] = useState(null);
+  const [selectedWord, setSelectedWord] = useState('');
+  const [isVerb, setIsVerb] = useState(false);
 
   const model = 'gpt-4o-mini';
   let apiKey = import.meta.env.VITE_OPENAI_API_KEY;
@@ -57,7 +59,7 @@ export const ItalianProvider = ({ children }) => {
   const handleCompletionWithFormat = (completion) => {
     const message = completion.choices[0]?.message;
     if (message?.parsed) {
-      console.log('Full conjugation JSON:', message.parsed); // Print the full conjugation JSON
+      console.log('Full parsed JSON:', message.parsed); // Print the full conjugation JSON
       return message.parsed;
     } else {
       return { refusal: message.refusal };
@@ -96,7 +98,7 @@ export const ItalianProvider = ({ children }) => {
       const completion = await openai.chat.completions.create({
         model: model,
         messages: [
-          { role: 'system', content: 'You are a translator. Translate the following paragraph to Italian. add * before each verb in the text' },
+          { role: 'system', content: 'You are a translator. Translate the following paragraph to Italian!. add * before each verb in the text' },
           {
             role: 'user',
             content: paragraph,
@@ -112,8 +114,6 @@ export const ItalianProvider = ({ children }) => {
   };
 
   const searchVerb = async (word) => {
-
-
     const completion = await openai.beta.chat.completions.parse({
       model: model,
       messages: [
@@ -159,7 +159,8 @@ export const ItalianProvider = ({ children }) => {
       console.error('Error fetching word translation from OpenAI:', error);
       throw error;
     }
-  }
+  };
+
   const fetchAskingAWord = async (word, isVerb) => {
     if (isVerb) {
       return await searchVerb(word);
@@ -181,12 +182,16 @@ export const ItalianProvider = ({ children }) => {
         clickedWords,
         nightMode,
         wordDetails,
+        selectedWord,
+        isVerb,
         setDescription,
         setParagraph,
         setVerbDetails,
         setVerbDetailsLoading,
         setClickedWords,
         setWordDetails,
+        setSelectedWord,
+        setIsVerb,
         handleIntroInputDone,
         fetchParagraph,
         fetchTranslation,

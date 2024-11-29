@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
-import VerbDetails from './VerbDetails';
-import WordDetails from './WordDetails';
 
 const VERB_COLOR = 'green';
 
@@ -10,22 +8,16 @@ const ParagraphTranslate = () => {
   const {
     paragraph,
     fetchTranslation,
-    fetchAskingAWord,
-    setVerbDetails,
-    setVerbDetailsLoading,
-    setWordDetails,
     clickedWords,
     setClickedWords,
     nightMode,
-    verbDetails,
-    wordDetails,
+    setSelectedWord,
+    setIsVerb,
   } = useItalian();
 
   const [translation, setTranslation] = useState('');
   const [loading, setLoading] = useState(false);
-  const [selectedWord, setSelectedWord] = useState('');
   const [error, setError] = useState('');
-  const [wordLoading, setWordLoading] = useState(false);
 
   const handleTranslate = async () => {
     setLoading(true);
@@ -43,23 +35,10 @@ const ParagraphTranslate = () => {
     }
   };
 
-  const handleWordClick = async (word, color) => {
+  const handleWordClick = (word, color) => {
     setSelectedWord(word);
+    setIsVerb(color === VERB_COLOR);
     setClickedWords((prev) => ({ ...prev, [word]: true })); // Update clicked words dictionary
-    const isVerb = color === VERB_COLOR;
-    if (isVerb) {
-      setVerbDetailsLoading(true);
-      setWordDetails(null); // Clear word details when a verb is clicked
-      const verbDetails = await fetchAskingAWord(word, true);
-      setVerbDetails(verbDetails);
-      setVerbDetailsLoading(false);
-    } else {
-      setWordLoading(true);
-      setVerbDetails(null); // Clear verb details when a word is clicked
-      const wordDetails = await fetchAskingAWord(word, false);
-      setWordDetails(wordDetails);
-      setWordLoading(false);
-    }
   };
 
   const formatText = (text) => {
@@ -90,8 +69,6 @@ const ParagraphTranslate = () => {
           Translate
         </button>
       </div>
-      {/* Render VerbDetails or WordDetails based on the state */}
-      {wordLoading ? <p>Loading word details...</p> : verbDetails ? <VerbDetails details={verbDetails} /> : wordDetails ? <WordDetails /> : null}
     </div>
   );
 };

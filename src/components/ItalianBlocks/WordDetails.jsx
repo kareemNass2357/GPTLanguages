@@ -4,7 +4,7 @@ import './animations.css'; // Import the CSS file
 
 const WordDetails = () => {
   const { wordDetails, nightMode } = useItalian();
-
+  console.log('wordDetails:', wordDetails);
   if (!wordDetails) {
     return <p>Loading word details...</p>; // Render loading message
   }
