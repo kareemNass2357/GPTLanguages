@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { useItalian } from '../../context/ItalianContext';
 import VerbDetails from './VerbDetails';
 import WordDetails from './WordDetails';
@@ -37,7 +37,9 @@ const TranslateWord = ({ word, isVerb }) => {
     return <p>Loading details...</p>;
   }
 
-  return isVerb ? <VerbDetails details={details} /> : <WordDetails details={details} />;
+  ComponentToReturn = isVerb ? VerbDetails : WordDetails
+
+  return <ComponentToReturn details={details} />;
 };
 
 export default TranslateWord;

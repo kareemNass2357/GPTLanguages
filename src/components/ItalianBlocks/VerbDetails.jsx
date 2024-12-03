@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
 
+// verbdetails comonent shows only verbs and their details, 
+// it shows overall analysis first, then shows blocks of the conjugations
+
+
 const ConjugationPanel = ({ tense, conjugations }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { nightMode } = useItalian();
@@ -31,6 +35,18 @@ const ConjugationPanel = ({ tense, conjugations }) => {
   );
 };
 
+const VerbAnalysis = ({ analysis }) => {
+  return (
+    <>
+      <h3 className="text-lg font-bold text-center text-red-600">Verb Analysis</h3>
+      {analysis && analysis.tense && <p className="text-center"><strong>Tense:</strong> {analysis.tense}</p>}
+      {analysis && analysis.original_form && <p className="text-center"><strong>Original Form:</strong> {analysis.original_form}</p>}
+      {analysis && analysis.grammatical_usage && <p className="text-center"><strong>Grammatical Usage:</strong> {analysis.grammatical_usage}</p>}
+      {analysis && analysis.example_sentence && <p className="text-center"><strong>Example Sentence:</strong> {analysis.example_sentence}</p>}
+    </>
+  );
+};
+
 const VerbDetails = ({ details }) => {
   const { nightMode } = useItalian();
 
@@ -43,20 +59,17 @@ const VerbDetails = ({ details }) => {
   const { analysis, ...conjugations } = details;
   console.log('Analysis:', analysis);
   console.log('Conjugations:', conjugations);
-  // show me all the keys in the anlysis object
-return (
-  <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
-    <h3 className="text-lg font-bold text-center text-red-600">Verb Analysis</h3>
-    {analysis && analysis.tense && <p className="text-center"><strong>Tense:</strong> {analysis.tense}</p>}
-    {analysis && analysis.original_form && <p className="text-center"><strong>Original Form:</strong> {analysis.original_form}</p>}
-    {analysis && analysis.grammatical_usage && <p className="text-center"><strong>Grammatical Usage:</strong> {analysis.grammatical_usage}</p>}
-    {analysis && analysis.example_sentence && <p className="text-center"><strong>Example Sentence:</strong> {analysis.example_sentence}</p>}
-    <div className="flex flex-wrap justify-center">
-      {Object.keys(conjugations).map((tense) => (
-        <ConjugationPanel key={tense} tense={tense} conjugations={conjugations[tense]} />
-      ))}
+
+  return (
+    <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
+      <VerbAnalysis analysis={analysis} />
+      <div className="flex flex-wrap justify-center">
+        {Object.keys(conjugations).map((tense) => (
+          <ConjugationPanel key={tense} tense={tense} conjugations={conjugations[tense]} />
+        ))}
+      </div>
     </div>
-  </div>
-);
-}
+  );
+};
+
 export default VerbDetails;
