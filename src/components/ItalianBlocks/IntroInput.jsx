@@ -44,6 +44,7 @@ const optionsDict = {
 const IntroInput = ({ onDone }) => {
   const [inputValue, setInputValue] = useState('');
   const [collapsed, setCollapsed] = useState(false);
+  const [fontSize, setFontSize] = useState(16); // State to manage font size
   const { nightMode } = useItalian();
 
   const handleDone = (value) => {
@@ -77,6 +78,10 @@ const IntroInput = ({ onDone }) => {
     button.style.setProperty('--rotate-y', `${rotateY}deg`);
   };
 
+  const handleFontSizeChange = (change) => {
+    setFontSize((prevSize) => Math.max(10, prevSize + change)); // Ensure font size doesn't go below 10
+  };
+
   // Add event listener for Ctrl + Enter key
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -92,12 +97,18 @@ const IntroInput = ({ onDone }) => {
   }, [inputValue]);
 
   return (
-    <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
+    <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px` }}>
       {collapsed ? (
         <h2 className="text-center">Intro</h2>
       ) : (
         <>
-          <div className="mb-1 small-font">Please enter a topic. A paragraph will be built about it.</div>
+          <div className="flex justify-between mb-1">
+            <div className="small-font">Please enter a topic. A paragraph will be built about it.</div>
+            <div className="flex gap-2">
+              <button onClick={() => handleFontSizeChange(-2)} className="px-2 py-1 bg-gray-300 rounded">-</button>
+              <button onClick={() => handleFontSizeChange(2)} className="px-2 py-1 bg-gray-300 rounded">+</button>
+            </div>
+          </div>
           <textarea
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}

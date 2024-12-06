@@ -464,6 +464,50 @@ p.morning {
 
 /* ...existing code... */
 
+.paragraph-container {
+  line-height: 1.5;
+  text-align: left; /* Align text to the left */
+}
+
+.paragraph-line {
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 10px; /* Add padding to the left */
+}
+
+.paragraph-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.paragraph-line:hover::before {
+  width: 100%;
+}
+
+.paragraph-line:hover {
+  font-size: 1.2em; /* Increase font size on hover */
+  color: var(--primary-color);
+  transform: scale(1.02);
+  font-weight: bold;
+}
+
+/* ...existing code... */
+
+.size-btn {
+  width: 24px; /* Smaller width */
+  height: 24px; /* Smaller height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem; /* Smaller font size */
+}
+
 .button-82-pushable {
   position: relative;
   border: none;
