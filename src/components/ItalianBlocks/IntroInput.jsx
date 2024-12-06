@@ -104,10 +104,12 @@ const IntroInput = ({ onDone }) => {
             <button
               key={key}
               onClick={() => handleOptionClick(prompt)}
-              className="px-4 py-2 text-black rounded-full"
-              style={{ backgroundColor: background }}
+              className="button-82-pushable"
+              style={{ '--button-bg': background }}
             >
-              {title}
+              <span className="button-82-shadow"></span>
+              <span className="button-82-edge" style={{ background: background }}></span>
+              <span className="button-82-front text" style={{ background: background }}>{title}</span>
             </button>
           ))}
         </div>
