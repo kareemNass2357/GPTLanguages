@@ -62,6 +62,19 @@ const IntroInput = ({ onDone }) => {
     console.log('were after handledone was clicked fom option button');
   };
 
+  const handleMouseClick = (event) => {
+    const button = event.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * 10;
+    const rotateY = ((x - centerX) / centerX) * -10;
+    button.style.setProperty('--rotate-x', `${rotateX}deg`);
+    button.style.setProperty('--rotate-y', `${rotateY}deg`);
+  };
+
   // Add event listener for Ctrl + Enter key
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -91,7 +104,8 @@ const IntroInput = ({ onDone }) => {
             <button
               key={key}
               onClick={() => handleOptionClick(prompt)}
-              className="px-4 py-2 text-black rounded-full"
+              onMouseDown={handleMouseClick}
+              className="multi-option-btn px-4 py-2 text-black rounded-full"
               style={{ backgroundColor: background }}
             >
               {title}
