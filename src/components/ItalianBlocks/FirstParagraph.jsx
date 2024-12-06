@@ -75,7 +75,7 @@ const FirstParagraph = () => {
         ) : (
           <div className="paragraph-container">
             {paragraph.split('\n').map((line, index) => (
-              <p key={index} className="paragraph-line hover:text-lg">{line}</p>
+              <p key={index} className="paragraph-line">{line}</p>
             ))}
           </div>
         )}

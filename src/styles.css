@@ -491,9 +491,8 @@ p.morning {
 }
 
 .paragraph-line:hover {
-  font-size: 1.2em; /* Increase font size on hover */
+  font-size: 115%; /* Increase font size by 15% on hover */
   color: var(--primary-color);
-  transform: scale(1.02);
   font-weight: bold;
 }
 
