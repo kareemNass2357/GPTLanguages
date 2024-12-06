@@ -104,8 +104,7 @@ const IntroInput = ({ onDone }) => {
             <button
               key={key}
               onClick={() => handleOptionClick(prompt)}
-              onMouseDown={handleMouseClick}
-              className="multi-option-btn px-4 py-2 text-black rounded-full"
+              className="px-4 py-2 text-black rounded-full"
               style={{ backgroundColor: background }}
             >
               {title}
@@ -113,7 +112,7 @@ const IntroInput = ({ onDone }) => {
           ))}
         </div>
         <div className="flex justify-end">
-          <button onClick={() => handleDone(inputValue)} className="px-4 py-2 bg-blue-500 text-white rounded">
+          <button onClick={() => handleDone(inputValue)} onMouseDown={handleMouseClick} className="next-btn px-4 py-2 bg-blue-500 text-white rounded">
             Next
           </button>
         </div>

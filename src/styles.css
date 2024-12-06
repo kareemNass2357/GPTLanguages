@@ -413,19 +413,19 @@ p.morning {
   background: #e67e22;
 }
 
-/* #region multi-option button hover effect */
-.multi-option-btn {
+/* #region next button 3D effect */
+.next-btn {
   position: relative;
   overflow: hidden;
   transition: background-color 0.3s ease, transform 0.2s ease;
   perspective: 1000px;
 }
 
-.multi-option-btn:active {
+.next-btn:active {
   transform: translateZ(-10px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
 }
 
-.multi-option-btn::before {
+.next-btn::before {
   content: '';
   position: absolute;
   top: 0;
@@ -436,10 +436,10 @@ p.morning {
   transition: left 0.3s ease;
 }
 
-.multi-option-btn:hover::before {
+.next-btn:hover::before {
   left: 100%;
 }
-/* endregion multi-option button hover effect */
+/* endregion next button 3D effect */
 
 /* #region folded corner effect */
 .folded-corner-panel {
