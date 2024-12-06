@@ -43,6 +43,7 @@ const optionsDict = {
 
 const IntroInput = ({ onDone }) => {
   const [inputValue, setInputValue] = useState('');
+  const [collapsed, setCollapsed] = useState(false);
   const { nightMode } = useItalian();
 
   const handleDone = (value) => {
@@ -51,6 +52,7 @@ const IntroInput = ({ onDone }) => {
       console.log('Done button was clicked with input:', value);
       setInputValue(value);
       onDone(value);
+      setCollapsed(true); // Collapse the component
     }
     console.log('handle done is handled');
   };
@@ -91,34 +93,40 @@ const IntroInput = ({ onDone }) => {
 
   return (
     <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
-      <div className="mb-1 small-font">Please enter a topic. A paragraph will be built about it.</div>
-      <textarea
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        className="input-box p-2 mb-2 border border-gray-400 rounded resize-none w-full"
-        rows="4"
-      />
-      <div className="flex justify-between mb-2">
-        <div className="flex flex-wrap gap-2">
-          {Object.entries(optionsDict).map(([key, { title, prompt, background }]) => (
-            <button
-              key={key}
-              onClick={() => handleOptionClick(prompt)}
-              className="button-82-pushable"
-              style={{ '--button-bg': background }}
-            >
-              <span className="button-82-shadow"></span>
-              <span className="button-82-edge" style={{ background: background }}></span>
-              <span className="button-82-front text" style={{ background: background }}>{title}</span>
-            </button>
-          ))}
-        </div>
-        <div className="flex justify-end">
-          <button onClick={() => handleDone(inputValue)} onMouseDown={handleMouseClick} className="next-btn px-4 py-2 bg-blue-500 text-white rounded">
-            Next
-          </button>
-        </div>
-      </div>
+      {collapsed ? (
+        <h2 className="text-center">Intro</h2>
+      ) : (
+        <>
+          <div className="mb-1 small-font">Please enter a topic. A paragraph will be built about it.</div>
+          <textarea
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            className="input-box p-2 mb-2 border border-gray-400 rounded resize-none w-full"
+            rows="4"
+          />
+          <div className="flex justify-between mb-2">
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(optionsDict).map(([key, { title, prompt, background }]) => (
+                <button
+                  key={key}
+                  onClick={() => handleOptionClick(prompt)}
+                  className="button-82-pushable"
+                  style={{ '--button-bg': background }}
+                >
+                  <span className="button-82-shadow"></span>
+                  <span className="button-82-edge" style={{ background: background }}></span>
+                  <span className="button-82-front text" style={{ background: background }}>{title}</span>
+                </button>
+              ))}
+            </div>
+            <div className="flex justify-end">
+              <button onClick={() => handleDone(inputValue)} onMouseDown={handleMouseClick} className="next-btn px-4 py-2 bg-blue-500 text-white rounded">
+                Next
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
