@@ -42,3 +42,8 @@ npm run build
 ```bash
 npm run preview
 ```
+
+
+
+pcb: i want to go 1 element after the other improve them
+then; have selectedTransltion component handling all the cliekd on ---> let this handle the sleection as well (not the translation component)

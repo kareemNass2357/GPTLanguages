@@ -14,7 +14,7 @@ export const ItalianProvider = ({ children }) => {
   const [verbDetailsLoading, setVerbDetailsLoading] = useState(false);
   const [clickedWords, setClickedWords] = useState({});
   const [loading, setLoading] = useState(false);
-  const [nightMode, setNightMode] = useState(false);
+  const [nightMode, setNightMode] = useState(true);
 
   const model = 'gpt-4o-mini';
   let apiKey = import.meta.env.VITE_OPENAI_API_KEY;

@@ -3,6 +3,7 @@ import IntroInput from '../components/ItalianBlocks/IntroInput';
 import FirstParagraph from '../components/ItalianBlocks/FirstParagraph';
 import ParagraphTranslate from '../components/ItalianBlocks/ParagraphTranslate';
 import VerbDetails from '../components/ItalianBlocks/VerbDetails';
+import ToggleNightMode from '../components/ToggleNightMode';
 import { useItalian } from '../context/ItalianContext';
 
 const Italian = () => {
@@ -13,7 +14,7 @@ const Italian = () => {
     verbDetailsLoading,
     handleIntroInputDone,
     nightMode,
-    toggleNightMode,
+    toggleNightMode, 
     setParagraph,
   } = useItalian();
 
@@ -23,23 +24,22 @@ const Italian = () => {
 
   return (
     <div className={nightMode ? 'night-mode' : ''}>
-      <div className="flex justify-center mt-2">
-        <button onClick={toggleNightMode} className="px-4 py-2 bg-gray-800 text-white rounded mb-4">
-          Toggle Night Mode
-        </button>
-      </div>
       <section className='flex flex-col justify-center items-center h-full'>
+        <div className="w-full md:w-[70vw] flex justify-center">
+          <ToggleNightMode nightMode={nightMode} toggleNightMode={toggleNightMode} />
+        </div>
         <IntroInput onDone={handleIntroInputDone} />
         {description && (
           <>
             <FirstParagraph description={description} onNext={paragraphAssigned} />
           </>
         )}
+        {/* 
         {paragraph && (
           <ParagraphTranslate />
         )}
         {verbDetailsLoading && <p>Loading verb details...</p>}
-        {verbDetails && <VerbDetails details={verbDetails} />}
+        {verbDetails && <VerbDetails details={verbDetails} />} */}
       </section>
     </div>
   );
