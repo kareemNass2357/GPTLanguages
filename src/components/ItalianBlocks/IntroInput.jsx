@@ -3,11 +3,43 @@ import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
 
 const optionsDict = {
-  option1: { title: 'simple conversation', prompt: 'provide a long conversation between two people , the conversation should use the most used words, the language should be simple.', background: '#FF6B6B' },
-  option2: { title: 'moderate conversation', prompt: 'provide a long conversation betwen two people, the conversation should be detailed with important words that is used in the language. the conversation sholdnt shy from deep topics.', background: '#4ECDC4' },
-  option3: { title: 'simple words', prompt: 'provide 10 words about an everyday subjects, and provide an example sentence for each word. the words should be from the 100 most used words in the language', background: '#FFD93D' },
-  option4: { title: 'moderate words', prompt: 'provide 10 words about an everyday subjects, and provide an example sentence for each word. the words should be from the 500 most used words in the language. provide words that are complex but are needed in everyday conversations', background: '#2D3436' },
+  // Conversation options
+  option1: { 
+    title: 'simple conversation', 
+    prompt: 'provide a long conversation between two people. The conversation should use the most common words, and the language should be simple and easy to follow.', 
+    background: '#FF5733' 
+  },
+  option2: { 
+    title: 'moderate conversation', 
+    prompt: 'provide a long conversation between two people. The conversation should include more detailed and meaningful topics, using words important for everyday communication.', 
+    background: '#FF5733' 
+  },
+  
+  // Word options
+  option3: { 
+    title: 'simple words', 
+    prompt: 'provide 10 words about an everyday subject, and provide an example sentence for each word. The words should be from the 100 most used words in the language.', 
+    background: '#FFC300' 
+  },
+  option4: { 
+    title: 'moderate words', 
+    prompt: 'provide 10 words about an everyday subject, and provide an example sentence for each word. The words should be from the 500 most used words in the language and should include more complex but commonly needed words.', 
+    background: '#FFC300' 
+  },
+  
+  // Grammar options
+  option5: { 
+    title: 'simple grammar', 
+    prompt: 'provide a mini grammar lesson on a basic grammar topic. Include a clear explanation with simple examples. The lesson should be concise and beginner-friendly.', 
+    background: '#33B5E5' 
+  },
+  option6: { 
+    title: 'moderate grammar', 
+    prompt: 'provide a mini grammar lesson on an intermediate grammar topic. Include a detailed explanation with multiple examples. The lesson should focus on understanding and real-life application.', 
+    background: '#33B5E5' 
+  }
 };
+
 
 const IntroInput = ({ onDone }) => {
   const [inputValue, setInputValue] = useState('');

@@ -40,26 +40,26 @@ button {
   background-color: var(--primary-color);
   color: white;
   border: none;
-  padding: 8px 16px; /* Reduced from 12px 24px */
-  border-radius: 25px;
-  font-size: 0.9em; /* Reduced from 1.1em */
+  padding: 12px 24px; /* Increased padding for a more bubbly look */
+  border-radius: 50px; /* Increased border-radius for a more rounded shape */
+  font-size: 1em; /* Adjusted font size */
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin: 5px; /* Reduced from 10px */
-  box-shadow: 0 4px 0 darken(var(--primary-color), 10%);
+  margin: 10px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2); /* Darker shadow for a more 3D effect */
 }
 
 button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 0 darken(var(--primary-color), 10%);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2); /* Adjusted shadow for hover effect */
 }
 
 button:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 darken(var(--primary-color), 10%);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2); /* Adjusted shadow for active state */
 }
 
 input, textarea {
