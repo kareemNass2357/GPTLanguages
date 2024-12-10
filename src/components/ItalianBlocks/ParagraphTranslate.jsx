@@ -4,7 +4,7 @@ import './animations.css'; // Import the CSS file
 
 const VERB_COLOR = 'green';
 
-const ParagraphTranslate = ({ fontSize }) => {
+const ParagraphTranslate = ({ fontSize, translation }) => {
   const {
     paragraph,
     fetchTranslation,
@@ -16,26 +16,9 @@ const ParagraphTranslate = ({ fontSize }) => {
     nightMode,
   } = useItalian();
 
-  const [translation, setTranslation] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedWord, setSelectedWord] = useState('');
   const [error, setError] = useState('');
-
-  const handleTranslate = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      console.log('were in paragraphtranslate   in handletranslate ')
-      const data = await fetchTranslation(paragraph, { mode: 'no-cors' });
-      console.log('Translation data received:', data);
-      setTranslation(data.translation);
-    } catch (error) {
-      console.error('Error fetching translation:', error);
-      setError('Error fetching translation');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleWordClick = async (word, color) => {
     setSelectedWord(word);
@@ -68,7 +51,7 @@ const ParagraphTranslate = ({ fontSize }) => {
   };
 
   return (
-    <div className={`w-full md:w-[70vw] border border-black p-5 m-2 rounded mx-auto overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px` }}>
+    <div className={`w-full md:w-[70vw] border border-black p-5 m-2 rounded mx-auto overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px`, textAlign: 'left' }}>
       <div className="flex justify-between mb-2">
         <div className="small-font">Translated Paragraph</div>
       </div>
@@ -84,11 +67,6 @@ const ParagraphTranslate = ({ fontSize }) => {
         )}
       </div>
       {error && <div className="text-red-500">{error}</div>}
-      <div className="flex justify-center mt-2">
-        <button onClick={handleTranslate} className="px-4 py-2 bg-blue-500 text-white rounded">
-          Translate
-        </button>
-      </div>
     </div>
   );
 };

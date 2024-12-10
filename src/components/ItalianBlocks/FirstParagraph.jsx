@@ -8,7 +8,7 @@ const SizeButton = ({ onClick, label }) => (
   </button>
 );
 
-const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange }) => {
+const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate, loading, error }) => {
   const {
     setParagraph,
     fetchParagraph,
@@ -16,12 +16,10 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange }) => 
   } = useItalian();
 
   const [paragraph, setLocalParagraph] = useState('');
-  const [loading, setLoading] = useState(false);
   const [isFetched, setIsFetched] = useState(false); // Added to track if the paragraph is already fetched
 
   const handleFetchParagraph = async () => {
     console.log("FirstParagraph.jsx: Fetching paragraph with description:", description);
-    setLoading(true);
     try {
       const data = await fetchParagraph(description);
       console.log("FirstParagraph.jsx: Fetched paragraph:", data);
@@ -30,8 +28,6 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange }) => 
       setIsFetched(true); // Mark as fetched
     } catch (error) {
       console.error('Error fetching paragraph:', error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -42,15 +38,12 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange }) => 
   }, [description, isFetched]); // Depend on `isFetched` to avoid repeated calls
 
   const handleRefresh = async () => {
-    setLoading(true);
     try {
       const data = await fetchParagraph(description);
       setLocalParagraph(data.paragraph);
       setParagraph(data.paragraph);
     } catch (error) {
       console.error('Error refreshing paragraph:', error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -82,12 +75,16 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange }) => 
           </div>
         )}
       </div>
+      {error && <div className="text-red-500">{error}</div>}
       <div className="flex justify-center mt-2">
         <button onClick={handleRefresh} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
           Refresh
         </button>
         <button onClick={() => onNext('Next paragraph')} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
           Next
+        </button>
+        <button onClick={onTranslate} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+          Translate
         </button>
       </div>
     </div>
