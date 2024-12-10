@@ -37,11 +37,11 @@ const Italian = () => {
   const handleTranslate = async () => {
     setLoadingTranslation(true);
     setTranslationError('');
+    setShowTranslation(true); // Show the translation component immediately
     console.log('---were in handle trnslate')
     try {
       const data = await fetchTranslation(paragraph, { mode: 'no-cors' });
       setTranslation(data.translation);
-      setShowTranslation(true);
     } catch (error) {
       setTranslationError('Error fetching translation');
     } finally {
@@ -67,6 +67,7 @@ const Italian = () => {
               translation={translation}
               highlightedLine={highlightedLine}
               setHighlightedLine={setHighlightedLine}
+              showTranslation={showTranslation}
             />
           </>
         )}
