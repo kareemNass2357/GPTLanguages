@@ -57,7 +57,7 @@ const Italian = () => {
         </div>
         <IntroInput onDone={handleIntroInputDone} />
         {description && (
-          <>
+          <div className="flex w-full md:w-[70vw] justify-between">
             <FirstParagraph 
               description={description} 
               onNext={paragraphAssigned} 
@@ -69,17 +69,17 @@ const Italian = () => {
               setHighlightedLine={setHighlightedLine}
               showTranslation={showTranslation}
             />
-          </>
-        )}
-        {paragraph && showTranslation && (
-          <ParagraphTranslate 
-            fontSize={fontSize} 
-            translation={translation} 
-            loading={loadingTranslation} 
-            error={translationError} 
-            highlightedLine={highlightedLine}
-            setHighlightedLine={setHighlightedLine}
-          />
+            {paragraph && showTranslation && (
+              <ParagraphTranslate 
+                fontSize={fontSize} 
+                translation={translation} 
+                loading={loadingTranslation} 
+                error={translationError} 
+                highlightedLine={highlightedLine}
+                setHighlightedLine={setHighlightedLine}
+              />
+            )}
+          </div>
         )}
         {/* {verbDetailsLoading && <p>Loading verb details...</p>} */}
         {/* {verbDetails && <VerbDetails details={verbDetails} />} */}

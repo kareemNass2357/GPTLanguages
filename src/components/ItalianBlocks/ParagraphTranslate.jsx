@@ -61,7 +61,7 @@ const ParagraphTranslate = ({ fontSize, translation, loading, error, highlighted
   };
 
   return (
-    <div className={`w-full md:w-[70vw] border border-black p-5 m-2 rounded mx-auto overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px`, textAlign: 'left' }}>
+    <div className={`w-full md:w-[48%] border border-black p-5 m-2 rounded overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px`, textAlign: 'left' }}>
       <div className="flex justify-between mb-2">
         <div className="small-font">Translated Paragraph</div>
       </div>
