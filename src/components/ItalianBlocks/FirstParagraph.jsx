@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
 import RefreshIcon from '@mui/icons-material/Refresh'; // Import the Refresh icon from Material-UI
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon from Material-UI
+import RemoveIcon from '@mui/icons-material/Remove'; // Import the Remove icon from Material-UI
+import TranslateIcon from '@mui/icons-material/Translate'; // Import the Translate icon from Material-UI
 
-const SizeButton = ({ onClick, label }) => (
+const SizeButton = ({ onClick, icon }) => (
   <button onClick={onClick} className="size-btn px-1 py-1 bg-gray-300 rounded w-6 h-6 flex items-center justify-center text-sm">
-    {label}
+    {icon}
   </button>
 );
 
@@ -91,8 +94,8 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
       <div className="flex justify-between mb-2">
         <div className="small-font">First Paragraph</div>
         <div className="flex gap-2">
-          <SizeButton onClick={decreaseFontSize} label="-" />
-          <SizeButton onClick={increaseFontSize} label="+" />
+          <SizeButton onClick={decreaseFontSize} icon={<RemoveIcon />} />
+          <SizeButton onClick={increaseFontSize} icon={<AddIcon />} />
         </div>
       </div>
       <div className="mb-2">
@@ -109,8 +112,8 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
           <button onClick={handleRefresh} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 flex items-center">
             <RefreshIcon className="mr-2" /> Refresh
           </button>
-          <button onClick={onTranslate} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-            Translate
+          <button onClick={onTranslate} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 flex items-center">
+            <TranslateIcon className="mr-2" /> Translate
           </button>
         </div>
       )}

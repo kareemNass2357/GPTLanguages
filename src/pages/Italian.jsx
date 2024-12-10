@@ -5,6 +5,8 @@ import ParagraphTranslate from '../components/ItalianBlocks/ParagraphTranslate';
 import VerbDetails from '../components/ItalianBlocks/VerbDetails';
 import ToggleNightMode from '../components/ToggleNightMode';
 import { useItalian } from '../context/ItalianContext';
+import ViewColumnIcon from '@mui/icons-material/ViewColumn'; // Import the ViewColumn icon from Material-UI
+import ViewStreamIcon from '@mui/icons-material/ViewStream'; // Import the ViewStream icon from Material-UI
 
 const Italian = () => {
   const {
@@ -69,8 +71,8 @@ const Italian = () => {
         {showIntro && <IntroInput onDone={handleIntroInputDoneWrapper} />}
         {description && (
           <>
-            <button onClick={toggleLayout} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mb-4">
-              Toggle Layout
+            <button onClick={toggleLayout} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mb-4 flex items-center">
+              {stackedLayout ? <ViewColumnIcon className="mr-2" /> : <ViewStreamIcon className="mr-2" />} Toggle Layout
             </button>
             <div className={`flex w-full md:w-[70vw] ${stackedLayout ? 'flex-col' : 'justify-between'}`}>
               <FirstParagraph 

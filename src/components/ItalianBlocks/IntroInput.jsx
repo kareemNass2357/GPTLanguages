@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon from Material-UI
+import RemoveIcon from '@mui/icons-material/Remove'; // Import the Remove icon from Material-UI
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'; // Import the ArrowForward icon from Material-UI
 
 const optionsDict = {
   // Conversation options
@@ -105,8 +108,8 @@ const IntroInput = ({ onDone }) => {
           <div className="flex justify-between mb-1">
             <div className="small-font">Please enter a topic. A paragraph will be built about it.</div>
             <div className="flex gap-2">
-              <button onClick={() => handleFontSizeChange(-2)} className="px-2 py-1 bg-gray-300 rounded">-</button>
-              <button onClick={() => handleFontSizeChange(2)} className="px-2 py-1 bg-gray-300 rounded">+</button>
+              <button onClick={() => handleFontSizeChange(-2)} className="px-2 py-1 bg-gray-300 rounded"><RemoveIcon /></button>
+              <button onClick={() => handleFontSizeChange(2)} className="px-2 py-1 bg-gray-300 rounded"><AddIcon /></button>
             </div>
           </div>
           <textarea
@@ -131,8 +134,8 @@ const IntroInput = ({ onDone }) => {
               ))}
             </div>
             <div className="flex justify-end">
-              <button onClick={() => handleDone(inputValue)} onMouseDown={handleMouseClick} className="next-btn px-4 py-2 bg-blue-500 text-white rounded">
-                Next
+              <button onClick={() => handleDone(inputValue)} onMouseDown={handleMouseClick} className="next-btn px-4 py-2 bg-blue-500 text-white rounded flex items-center">
+                Next <ArrowForwardIcon className="ml-2" />
               </button>
             </div>
           </div>

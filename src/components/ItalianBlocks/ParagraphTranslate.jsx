@@ -1,12 +1,14 @@
 import React from 'react';
 import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon from Material-UI
+import RemoveIcon from '@mui/icons-material/Remove'; // Import the Remove icon from Material-UI
 
 const VERB_COLOR = 'green';
 
-const SizeButton = ({ onClick, label }) => (
+const SizeButton = ({ onClick, icon }) => (
   <button onClick={onClick} className="size-btn px-1 py-1 bg-gray-300 rounded w-6 h-6 flex items-center justify-center text-sm">
-    {label}
+    {icon}
   </button>
 );
 
@@ -79,8 +81,8 @@ const ParagraphTranslate = ({ fontSize, translation, loading, error, highlighted
       <div className="flex justify-between mb-2">
         <div className="small-font">Translated Paragraph</div>
         <div className="flex gap-2">
-          <SizeButton onClick={decreaseFontSize} label="-" />
-          <SizeButton onClick={increaseFontSize} label="+" />
+          <SizeButton onClick={decreaseFontSize} icon={<RemoveIcon />} />
+          <SizeButton onClick={increaseFontSize} icon={<AddIcon />} />
         </div>
       </div>
       <div className="mb-2">
