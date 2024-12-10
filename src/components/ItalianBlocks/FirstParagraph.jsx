@@ -80,7 +80,7 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
       <p
         key={index}
         className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''}`}
-        style={{ backgroundColor: highlightedLine === index + 1 ? 'yellow' : 'transparent' }}
+        style={{ backgroundColor: highlightedLine === index + 1 ? 'yellow' : 'transparent', lineHeight: '3' }}
         onMouseEnter={() => handleMouseEnter(index + 1)}
         onMouseLeave={handleMouseLeave}
       >
@@ -108,7 +108,7 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
         )}
       </div>
       {!showTranslation && (
-        <div className="flex justify-center mt-2">
+        <div className="flex justify-center mt-2 gap-4">
           <button onClick={handleRefresh} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 flex items-center">
             <RefreshIcon className="mr-2" /> Refresh
           </button>

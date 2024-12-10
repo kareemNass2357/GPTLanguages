@@ -58,6 +58,7 @@ const ParagraphTranslate = ({ fontSize, translation, loading, error, highlighted
         className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''}`}
         onMouseEnter={() => handleMouseEnter(index + 1)}
         onMouseLeave={handleMouseLeave}
+        style={{ lineHeight: '3' }}
       >
         {sentence.split(' ').map((word, wordIndex) => {
           const displayWord = word.startsWith('*') ? word.substring(1) : word;
