@@ -163,3 +163,7 @@
 .night-mode .zigzag-row-right:hover {
   background-color: #3b4a5a; /* Darker color for night mode */
 }
+
+.highlight {
+  background-color: yellow;
+}

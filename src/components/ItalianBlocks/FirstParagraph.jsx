@@ -8,7 +8,7 @@ const SizeButton = ({ onClick, label }) => (
   </button>
 );
 
-const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate, translation }) => {
+const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate, translation, highlightedLine }) => {
   const {
     setParagraph,
     fetchParagraph,
@@ -64,7 +64,13 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
 
   const formatText = (text) => {
     return text.split('.').map((sentence, index) => (
-      <p key={index} className="paragraph-line text-left">{sentence.trim()}.</p>
+      <p
+        key={index}
+        className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''}`}
+        style={{ backgroundColor: highlightedLine === index + 1 ? 'yellow' : 'transparent' }}
+      >
+        {sentence.trim()}.
+      </p>
     ));
   };
 

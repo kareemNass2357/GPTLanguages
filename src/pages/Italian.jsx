@@ -63,6 +63,7 @@ const Italian = () => {
               onFontSizeChange={handleFontSizeChange} 
               onTranslate={handleTranslate}
               translation={translation}
+              highlightedLine={highlightedLine}
             />
           </>
         )}
