@@ -25,6 +25,7 @@ const Italian = () => {
   const [translationError, setTranslationError] = useState('');
   const [highlightedLine, setHighlightedLine] = useState('');
   const [showTranslation, setShowTranslation] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
 
   const handleFontSizeChange = (size) => {
     setFontSize(size);
@@ -49,13 +50,18 @@ const Italian = () => {
     }
   };
 
+  const handleIntroInputDoneWrapper = (data) => {
+    handleIntroInputDone(data);
+    setShowIntro(false); // Hide the IntroInput component
+  };
+
   return (
     <div className={nightMode ? 'night-mode' : ''}>
       <section className='flex flex-col justify-center items-center h-full'>
         <div className="w-full md:w-[70vw] flex justify-center">
           <ToggleNightMode nightMode={nightMode} toggleNightMode={toggleNightMode} />
         </div>
-        <IntroInput onDone={handleIntroInputDone} />
+        {showIntro && <IntroInput onDone={handleIntroInputDoneWrapper} />}
         {description && (
           <div className="flex w-full md:w-[70vw] justify-between">
             <FirstParagraph 
