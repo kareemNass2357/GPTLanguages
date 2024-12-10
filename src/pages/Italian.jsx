@@ -26,6 +26,7 @@ const Italian = () => {
   const [highlightedLine, setHighlightedLine] = useState('');
   const [showTranslation, setShowTranslation] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
+  const [stackedLayout, setStackedLayout] = useState(false);
 
   const handleFontSizeChange = (size) => {
     setFontSize(size);
@@ -55,6 +56,10 @@ const Italian = () => {
     setShowIntro(false); // Hide the IntroInput component
   };
 
+  const toggleLayout = () => {
+    setStackedLayout(!stackedLayout);
+  };
+
   return (
     <div className={nightMode ? 'night-mode' : ''}>
       <section className='flex flex-col justify-center items-center h-full'>
@@ -63,29 +68,34 @@ const Italian = () => {
         </div>
         {showIntro && <IntroInput onDone={handleIntroInputDoneWrapper} />}
         {description && (
-          <div className="flex w-full md:w-[70vw] justify-between">
-            <FirstParagraph 
-              description={description} 
-              onNext={paragraphAssigned} 
-              fontSize={fontSize} 
-              onFontSizeChange={handleFontSizeChange} 
-              onTranslate={handleTranslate}
-              translation={translation}
-              highlightedLine={highlightedLine}
-              setHighlightedLine={setHighlightedLine}
-              showTranslation={showTranslation}
-            />
-            {paragraph && showTranslation && (
-              <ParagraphTranslate 
+          <>
+            <button onClick={toggleLayout} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mb-4">
+              Toggle Layout
+            </button>
+            <div className={`flex w-full md:w-[70vw] ${stackedLayout ? 'flex-col' : 'justify-between'}`}>
+              <FirstParagraph 
+                description={description} 
+                onNext={paragraphAssigned} 
                 fontSize={fontSize} 
-                translation={translation} 
-                loading={loadingTranslation} 
-                error={translationError} 
+                onFontSizeChange={handleFontSizeChange} 
+                onTranslate={handleTranslate}
+                translation={translation}
                 highlightedLine={highlightedLine}
                 setHighlightedLine={setHighlightedLine}
+                showTranslation={showTranslation}
               />
-            )}
-          </div>
+              {paragraph && showTranslation && (
+                <ParagraphTranslate 
+                  fontSize={fontSize} 
+                  translation={translation} 
+                  loading={loadingTranslation} 
+                  error={translationError} 
+                  highlightedLine={highlightedLine}
+                  setHighlightedLine={setHighlightedLine}
+                />
+              )}
+            </div>
+          </>
         )}
         {/* {verbDetailsLoading && <p>Loading verb details...</p>} */}
         {/* {verbDetails && <VerbDetails details={verbDetails} />} */}
