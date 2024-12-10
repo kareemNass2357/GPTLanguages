@@ -4,7 +4,13 @@ import './animations.css'; // Import the CSS file
 
 const VERB_COLOR = 'green';
 
-const ParagraphTranslate = ({ fontSize, translation, loading, error, highlightedLine, setHighlightedLine }) => {
+const SizeButton = ({ onClick, label }) => (
+  <button onClick={onClick} className="size-btn px-1 py-1 bg-gray-300 rounded w-6 h-6 flex items-center justify-center text-sm">
+    {label}
+  </button>
+);
+
+const ParagraphTranslate = ({ fontSize, translation, loading, error, highlightedLine, setHighlightedLine, onFontSizeChange }) => {
   const {
     fetchAskingAWord,
     setVerbDetails,
@@ -33,6 +39,14 @@ const ParagraphTranslate = ({ fontSize, translation, loading, error, highlighted
 
   const handleMouseLeave = () => {
     setHighlightedLine('');
+  };
+
+  const increaseFontSize = () => {
+    onFontSizeChange(fontSize + 1);
+  };
+
+  const decreaseFontSize = () => {
+    onFontSizeChange(fontSize - 1);
   };
 
   const formatText = (text) => {
@@ -64,6 +78,10 @@ const ParagraphTranslate = ({ fontSize, translation, loading, error, highlighted
     <div className={`w-full md:w-[48%] border border-black p-5 m-2 rounded overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px`, textAlign: 'left' }}>
       <div className="flex justify-between mb-2">
         <div className="small-font">Translated Paragraph</div>
+        <div className="flex gap-2">
+          <SizeButton onClick={decreaseFontSize} label="-" />
+          <SizeButton onClick={increaseFontSize} label="+" />
+        </div>
       </div>
       <div className="mb-2">
         {loading ? (
