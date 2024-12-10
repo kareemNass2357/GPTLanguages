@@ -77,7 +77,7 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange }) => 
         ) : (
           <div className="paragraph-container">
             {paragraph.split('\n').map((line, index) => (
-              <p key={index} className="paragraph-line">{line}</p>
+              <p key={index} className="paragraph-line text-left">{line}</p>
             ))}
           </div>
         )}

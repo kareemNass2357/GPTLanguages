@@ -78,7 +78,7 @@ const ParagraphTranslate = ({ fontSize }) => {
         ) : (
           <div className="paragraph-container">
             {translation.split('\n').map((line, index) => (
-              <p key={index} className="paragraph-line">{formatText(line)}</p>
+              <p key={index} className="paragraph-line text-left">{formatText(line)}</p>
             ))}
           </div>
         )}
