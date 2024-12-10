@@ -8,7 +8,7 @@ const SizeButton = ({ onClick, label }) => (
   </button>
 );
 
-const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate, translation, highlightedLine }) => {
+const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate, translation, highlightedLine, setHighlightedLine }) => {
   const {
     setParagraph,
     fetchParagraph,
@@ -62,12 +62,23 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
     onFontSizeChange(fontSize - 1);
   };
 
+  const handleMouseEnter = (lineIndex) => {
+    setHighlightedLine(lineIndex);
+    console.log('Highlighted line number:', lineIndex);
+  };
+
+  const handleMouseLeave = () => {
+    setHighlightedLine('');
+  };
+
   const formatText = (text) => {
     return text.split('.').map((sentence, index) => (
       <p
         key={index}
         className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''}`}
         style={{ backgroundColor: highlightedLine === index + 1 ? 'yellow' : 'transparent' }}
+        onMouseEnter={() => handleMouseEnter(index + 1)}
+        onMouseLeave={handleMouseLeave}
       >
         {sentence.trim()}.
       </p>

@@ -64,6 +64,7 @@ const Italian = () => {
               onTranslate={handleTranslate}
               translation={translation}
               highlightedLine={highlightedLine}
+              setHighlightedLine={setHighlightedLine}
             />
           </>
         )}

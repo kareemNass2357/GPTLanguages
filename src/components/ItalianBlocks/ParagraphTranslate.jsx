@@ -39,7 +39,7 @@ const ParagraphTranslate = ({ fontSize, translation, loading, error, highlighted
     return text.split('.').map((sentence, index) => (
       <p
         key={index}
-        className="paragraph-line text-left"
+        className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''}`}
         onMouseEnter={() => handleMouseEnter(index + 1)}
         onMouseLeave={handleMouseLeave}
       >
