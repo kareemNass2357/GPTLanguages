@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
 
 const VERB_COLOR = 'green';
 
-const ParagraphTranslate = ({ fontSize, translation }) => {
+const ParagraphTranslate = ({ fontSize, translation, loading, error }) => {
   const {
     paragraph,
     fetchTranslation,
@@ -16,12 +16,7 @@ const ParagraphTranslate = ({ fontSize, translation }) => {
     nightMode,
   } = useItalian();
 
-  const [loading, setLoading] = useState(false);
-  const [selectedWord, setSelectedWord] = useState('');
-  const [error, setError] = useState('');
-
   const handleWordClick = async (word, color) => {
-    setSelectedWord(word);
     setClickedWords((prev) => ({ ...prev, [word]: true })); // Update clicked words dictionary
     setVerbDetailsLoading(); // Trigger loading state
     try {
@@ -30,7 +25,6 @@ const ParagraphTranslate = ({ fontSize, translation }) => {
       setVerbDetails(details); // Pass the details to the parent component
     } catch (error) {
       console.error('Error fetching word translation:', error);
-      setError('Error fetching word translation');
     }
   };
 

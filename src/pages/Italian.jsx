@@ -21,8 +21,8 @@ const Italian = () => {
 
   const [fontSize, setFontSize] = useState(16);
   const [translation, setTranslation] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [loadingTranslation, setLoadingTranslation] = useState(false);
+  const [translationError, setTranslationError] = useState('');
 
   const handleFontSizeChange = (size) => {
     setFontSize(size);
@@ -33,16 +33,16 @@ const Italian = () => {
   };
 
   const handleTranslate = async () => {
-    setLoading(true);
-    setError('');
+    setLoadingTranslation(true);
+    setTranslationError('');
     console.log('---were in handle trnslate')
     try {
       const data = await fetchTranslation(paragraph, { mode: 'no-cors' });
       setTranslation(data.translation);
     } catch (error) {
-      setError('Error fetching translation');
+      setTranslationError('Error fetching translation');
     } finally {
-      setLoading(false);
+      setLoadingTranslation(false);
     }
   };
 
@@ -61,12 +61,17 @@ const Italian = () => {
               fontSize={fontSize} 
               onFontSizeChange={handleFontSizeChange} 
               onTranslate={handleTranslate}
-              loading={loading}
-              error={error}
             />
           </>
         )}
-        {paragraph && <ParagraphTranslate fontSize={fontSize} translation={translation} />}
+        {paragraph && (
+          <ParagraphTranslate 
+            fontSize={fontSize} 
+            translation={translation} 
+            loading={loadingTranslation} 
+            error={translationError} 
+          />
+        )}
         {/* {verbDetailsLoading && <p>Loading verb details...</p>} */}
         {/* {verbDetails && <VerbDetails details={verbDetails} />} */}
       </section>

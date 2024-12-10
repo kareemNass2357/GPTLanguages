@@ -8,7 +8,7 @@ const SizeButton = ({ onClick, label }) => (
   </button>
 );
 
-const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate, loading, error }) => {
+const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate }) => {
   const {
     setParagraph,
     fetchParagraph,
@@ -17,9 +17,11 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
 
   const [paragraph, setLocalParagraph] = useState('');
   const [isFetched, setIsFetched] = useState(false); // Added to track if the paragraph is already fetched
+  const [loading, setLoading] = useState(false);
 
   const handleFetchParagraph = async () => {
     console.log("FirstParagraph.jsx: Fetching paragraph with description:", description);
+    setLoading(true);
     try {
       const data = await fetchParagraph(description);
       console.log("FirstParagraph.jsx: Fetched paragraph:", data);
@@ -28,6 +30,8 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
       setIsFetched(true); // Mark as fetched
     } catch (error) {
       console.error('Error fetching paragraph:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,12 +42,15 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
   }, [description, isFetched]); // Depend on `isFetched` to avoid repeated calls
 
   const handleRefresh = async () => {
+    setLoading(true);
     try {
       const data = await fetchParagraph(description);
       setLocalParagraph(data.paragraph);
       setParagraph(data.paragraph);
     } catch (error) {
       console.error('Error refreshing paragraph:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,7 +82,6 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
           </div>
         )}
       </div>
-      {error && <div className="text-red-500">{error}</div>}
       <div className="flex justify-center mt-2">
         <button onClick={handleRefresh} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
           Refresh
