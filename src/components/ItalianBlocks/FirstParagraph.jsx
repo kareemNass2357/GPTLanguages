@@ -8,7 +8,7 @@ const SizeButton = ({ onClick, label }) => (
   </button>
 );
 
-const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate }) => {
+const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate, translation }) => {
   const {
     setParagraph,
     fetchParagraph,
@@ -83,15 +83,16 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
         )}
       </div>
       <div className="flex justify-center mt-2">
-        <button onClick={handleRefresh} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-          Refresh
-        </button>
-        <button onClick={() => onNext('Next paragraph')} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-          Next
-        </button>
-        <button onClick={onTranslate} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-          Translate
-        </button>
+        {translation ? null : (
+          <>
+            <button onClick={handleRefresh} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+              Refresh
+            </button>
+            <button onClick={onTranslate} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+              Translate
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

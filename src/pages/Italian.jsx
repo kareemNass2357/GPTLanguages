@@ -61,6 +61,7 @@ const Italian = () => {
               fontSize={fontSize} 
               onFontSizeChange={handleFontSizeChange} 
               onTranslate={handleTranslate}
+              translation={translation}
             />
           </>
         )}
