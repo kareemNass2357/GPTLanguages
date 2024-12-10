@@ -68,10 +68,20 @@ const ParagraphTranslate = ({ fontSize }) => {
   };
 
   return (
-    <div className={`border border-black p-5 m-2 rounded w-full md:w-[70vw] overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`}>
-      <div className="text-lg font-bold mb-2">press on word to get translation</div>
+    <div className={`w-full md:w-[70vw] border border-black p-5 m-2 rounded mx-auto overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px` }}>
+      <div className="flex justify-between mb-2">
+        <div className="small-font">Translated Paragraph</div>
+      </div>
       <div className="mb-2">
-        {loading ? 'Loading...' : formatText(translation)}
+        {loading ? (
+          'Loading...'
+        ) : (
+          <div className="paragraph-container">
+            {translation.split('\n').map((line, index) => (
+              <p key={index} className="paragraph-line">{formatText(line)}</p>
+            ))}
+          </div>
+        )}
       </div>
       {error && <div className="text-red-500">{error}</div>}
       <div className="flex justify-center mt-2">

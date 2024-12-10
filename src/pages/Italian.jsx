@@ -46,8 +46,8 @@ const Italian = () => {
           </>
         )}
         {paragraph && <ParagraphTranslate fontSize={fontSize} />}
-        {verbDetailsLoading && <p>Loading verb details...</p>}
-        {verbDetails && <VerbDetails details={verbDetails} />}
+        {/* {verbDetailsLoading && <p>Loading verb details...</p>} */}
+        {/* {verbDetails && <VerbDetails details={verbDetails} />} */}
       </section>
     </div>
   );
