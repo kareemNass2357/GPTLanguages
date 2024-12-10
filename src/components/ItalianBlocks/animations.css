@@ -167,3 +167,7 @@
 .highlight {
   background-color: yellow;
 }
+
+.new-line {
+  margin-bottom: 1em; /* Add space between new lines */
+}

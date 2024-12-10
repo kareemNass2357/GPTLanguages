@@ -79,7 +79,7 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
     return text.split('.').map((sentence, index) => (
       <p
         key={index}
-        className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''}`}
+        className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''} new-line`}
         style={{ backgroundColor: highlightedLine === index + 1 ? 'yellow' : 'transparent', lineHeight: '3' }}
         onMouseEnter={() => handleMouseEnter(index + 1)}
         onMouseLeave={handleMouseLeave}

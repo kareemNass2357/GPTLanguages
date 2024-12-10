@@ -55,10 +55,10 @@ const ParagraphTranslate = ({ fontSize, translation, loading, error, highlighted
     return text.split('.').map((sentence, index) => (
       <p
         key={index}
-        className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''}`}
+        className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''} new-line`}
         onMouseEnter={() => handleMouseEnter(index + 1)}
         onMouseLeave={handleMouseLeave}
-        style={{ lineHeight: '3' }}
+        style={{ lineHeight: '1.8' }}
       >
         {sentence.split(' ').map((word, wordIndex) => {
           const displayWord = word.startsWith('*') ? word.substring(1) : word;
