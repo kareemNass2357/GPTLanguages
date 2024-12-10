@@ -8,9 +8,8 @@ const SizeButton = ({ onClick, label }) => (
   </button>
 );
 
-const FirstParagraph = () => {
+const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange }) => {
   const {
-    description,
     setParagraph,
     fetchParagraph,
     nightMode,
@@ -19,7 +18,6 @@ const FirstParagraph = () => {
   const [paragraph, setLocalParagraph] = useState('');
   const [loading, setLoading] = useState(false);
   const [isFetched, setIsFetched] = useState(false); // Added to track if the paragraph is already fetched
-  const [fontSize, setFontSize] = useState(16); // State to manage font size
 
   const handleFetchParagraph = async () => {
     console.log("FirstParagraph.jsx: Fetching paragraph with description:", description);
@@ -56,8 +54,12 @@ const FirstParagraph = () => {
     }
   };
 
-  const handleFontSizeChange = (change) => {
-    setFontSize((prevSize) => Math.max(10, prevSize + change)); // Ensure font size doesn't go below 10
+  const increaseFontSize = () => {
+    onFontSizeChange(fontSize + 1);
+  };
+
+  const decreaseFontSize = () => {
+    onFontSizeChange(fontSize - 1);
   };
 
   return (
@@ -65,8 +67,8 @@ const FirstParagraph = () => {
       <div className="flex justify-between mb-2">
         <div className="small-font">First Paragraph</div>
         <div className="flex gap-2">
-          <SizeButton onClick={() => handleFontSizeChange(-2)} label="-" />
-          <SizeButton onClick={() => handleFontSizeChange(2)} label="+" />
+          <SizeButton onClick={decreaseFontSize} label="-" />
+          <SizeButton onClick={increaseFontSize} label="+" />
         </div>
       </div>
       <div className="mb-2">
@@ -83,6 +85,9 @@ const FirstParagraph = () => {
       <div className="flex justify-center mt-2">
         <button onClick={handleRefresh} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
           Refresh
+        </button>
+        <button onClick={() => onNext('Next paragraph')} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+          Next
         </button>
       </div>
     </div>

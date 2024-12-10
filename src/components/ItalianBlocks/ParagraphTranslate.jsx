@@ -4,7 +4,7 @@ import './animations.css'; // Import the CSS file
 
 const VERB_COLOR = 'green';
 
-const ParagraphTranslate = () => {
+const ParagraphTranslate = ({ fontSize }) => {
   const {
     paragraph,
     fetchTranslation,
@@ -58,7 +58,7 @@ const ParagraphTranslate = () => {
       return (
         <span
           key={index}
-          style={{ color: color, fontWeight: 'bold', cursor: 'pointer' }}
+          style={{ color: color, fontWeight: 'bold', cursor: 'pointer', fontSize: `${fontSize}px` }}
           onClick={() => handleWordClick(displayWord, color)}
         >
           {displayWord}{' '}

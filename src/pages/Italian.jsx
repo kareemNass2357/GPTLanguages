@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import IntroInput from '../components/ItalianBlocks/IntroInput';
 import FirstParagraph from '../components/ItalianBlocks/FirstParagraph';
 import ParagraphTranslate from '../components/ItalianBlocks/ParagraphTranslate';
@@ -18,6 +18,12 @@ const Italian = () => {
     setParagraph,
   } = useItalian();
 
+  const [fontSize, setFontSize] = useState(16);
+
+  const handleFontSizeChange = (size) => {
+    setFontSize(size);
+  };
+
   const paragraphAssigned = (paragraph) => {
     setParagraph(paragraph);
   };
@@ -31,15 +37,17 @@ const Italian = () => {
         <IntroInput onDone={handleIntroInputDone} />
         {description && (
           <>
-            <FirstParagraph description={description} onNext={paragraphAssigned} />
+            <FirstParagraph 
+              description={description} 
+              onNext={paragraphAssigned} 
+              fontSize={fontSize} 
+              onFontSizeChange={handleFontSizeChange} 
+            />
           </>
         )}
-        {/* 
-        {paragraph && (
-          <ParagraphTranslate />
-        )}
+        {paragraph && <ParagraphTranslate fontSize={fontSize} />}
         {verbDetailsLoading && <p>Loading verb details...</p>}
-        {verbDetails && <VerbDetails details={verbDetails} />} */}
+        {verbDetails && <VerbDetails details={verbDetails} />}
       </section>
     </div>
   );
