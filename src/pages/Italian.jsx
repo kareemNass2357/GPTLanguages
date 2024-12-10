@@ -24,6 +24,7 @@ const Italian = () => {
   const [loadingTranslation, setLoadingTranslation] = useState(false);
   const [translationError, setTranslationError] = useState('');
   const [highlightedLine, setHighlightedLine] = useState('');
+  const [showTranslation, setShowTranslation] = useState(false);
 
   const handleFontSizeChange = (size) => {
     setFontSize(size);
@@ -40,6 +41,7 @@ const Italian = () => {
     try {
       const data = await fetchTranslation(paragraph, { mode: 'no-cors' });
       setTranslation(data.translation);
+      setShowTranslation(true);
     } catch (error) {
       setTranslationError('Error fetching translation');
     } finally {
@@ -68,7 +70,7 @@ const Italian = () => {
             />
           </>
         )}
-        {paragraph && (
+        {paragraph && showTranslation && (
           <ParagraphTranslate 
             fontSize={fontSize} 
             translation={translation} 
