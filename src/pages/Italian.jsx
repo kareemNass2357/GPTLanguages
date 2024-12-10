@@ -23,6 +23,7 @@ const Italian = () => {
   const [translation, setTranslation] = useState('');
   const [loadingTranslation, setLoadingTranslation] = useState(false);
   const [translationError, setTranslationError] = useState('');
+  const [highlightedLine, setHighlightedLine] = useState('');
 
   const handleFontSizeChange = (size) => {
     setFontSize(size);
@@ -71,6 +72,8 @@ const Italian = () => {
             translation={translation} 
             loading={loadingTranslation} 
             error={translationError} 
+            highlightedLine={highlightedLine}
+            setHighlightedLine={setHighlightedLine}
           />
         )}
         {/* {verbDetailsLoading && <p>Loading verb details...</p>} */}

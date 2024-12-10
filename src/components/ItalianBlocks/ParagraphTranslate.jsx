@@ -4,7 +4,7 @@ import './animations.css'; // Import the CSS file
 
 const VERB_COLOR = 'green';
 
-const ParagraphTranslate = ({ fontSize, translation, loading, error }) => {
+const ParagraphTranslate = ({ fontSize, translation, loading, error, highlightedLine, setHighlightedLine }) => {
   const {
     fetchAskingAWord,
     setVerbDetails,
@@ -26,9 +26,23 @@ const ParagraphTranslate = ({ fontSize, translation, loading, error }) => {
     }
   };
 
+  const handleMouseEnter = (lineIndex) => {
+    setHighlightedLine(lineIndex);
+    console.log('Highlighted line number:', lineIndex);
+  };
+
+  const handleMouseLeave = () => {
+    setHighlightedLine('');
+  };
+
   const formatText = (text) => {
     return text.split('.').map((sentence, index) => (
-      <p key={index} className="paragraph-line text-left">
+      <p
+        key={index}
+        className="paragraph-line text-left"
+        onMouseEnter={() => handleMouseEnter(index + 1)}
+        onMouseLeave={handleMouseLeave}
+      >
         {sentence.split(' ').map((word, wordIndex) => {
           const displayWord = word.startsWith('*') ? word.substring(1) : word;
           const color = word.startsWith('*') ? VERB_COLOR : nightMode ? '#ecf0f1' : 'black';
