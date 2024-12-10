@@ -6,8 +6,6 @@ const VERB_COLOR = 'green';
 
 const ParagraphTranslate = ({ fontSize, translation, loading, error }) => {
   const {
-    paragraph,
-    fetchTranslation,
     fetchAskingAWord,
     setVerbDetails,
     setVerbDetailsLoading,
@@ -29,19 +27,23 @@ const ParagraphTranslate = ({ fontSize, translation, loading, error }) => {
   };
 
   const formatText = (text) => {
-    return text.split(' ').map((word, index) => {
-      const displayWord = word.startsWith('*') ? word.substring(1) : word;
-      const color = word.startsWith('*') ? VERB_COLOR : nightMode ? '#ecf0f1' : 'black';
-      return (
-        <span
-          key={index}
-          style={{ color: color, fontWeight: 'bold', cursor: 'pointer', fontSize: `${fontSize}px` }}
-          onClick={() => handleWordClick(displayWord, color)}
-        >
-          {displayWord}{' '}
-        </span>
-      );
-    });
+    return text.split('.').map((sentence, index) => (
+      <p key={index} className="paragraph-line text-left">
+        {sentence.split(' ').map((word, wordIndex) => {
+          const displayWord = word.startsWith('*') ? word.substring(1) : word;
+          const color = word.startsWith('*') ? VERB_COLOR : nightMode ? '#ecf0f1' : 'black';
+          return (
+            <span
+              key={wordIndex}
+              style={{ color: color, fontWeight: 'bold', cursor: 'pointer', fontSize: `${fontSize}px` }}
+              onClick={() => handleWordClick(displayWord, color)}
+            >
+              {displayWord}{' '}
+            </span>
+          );
+        })}
+      </p>
+    ));
   };
 
   return (
@@ -54,9 +56,7 @@ const ParagraphTranslate = ({ fontSize, translation, loading, error }) => {
           'Loading...'
         ) : (
           <div className="paragraph-container">
-            {translation.split('\n').map((line, index) => (
-              <p key={index} className="paragraph-line text-left">{formatText(line)}</p>
-            ))}
+            {formatText(translation)}
           </div>
         )}
       </div>

@@ -62,6 +62,12 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
     onFontSizeChange(fontSize - 1);
   };
 
+  const formatText = (text) => {
+    return text.split('.').map((sentence, index) => (
+      <p key={index} className="paragraph-line text-left">{sentence.trim()}.</p>
+    ));
+  };
+
   return (
     <div className={`w-full md:w-[70vw] border border-black p-5 m-2 rounded mx-auto overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px` }}>
       <div className="flex justify-between mb-2">
@@ -76,9 +82,7 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
           'Loading...'
         ) : (
           <div className="paragraph-container">
-            {paragraph.split('\n').map((line, index) => (
-              <p key={index} className="paragraph-line text-left">{line}</p>
-            ))}
+            {formatText(paragraph)}
           </div>
         )}
       </div>
