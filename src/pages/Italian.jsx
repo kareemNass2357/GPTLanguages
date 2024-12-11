@@ -9,6 +9,8 @@ import ViewColumnIcon from '@mui/icons-material/ViewColumn'; // Import the ViewC
 import ViewStreamIcon from '@mui/icons-material/ViewStream'; // Import the ViewStream icon from Material-UI
 import SaveIcon from '@mui/icons-material/Save'; // Import the Save icon from Material-UI
 import LoadIcon from '@mui/icons-material/CloudDownload'; // Import the Load icon from Material-UI
+import RefreshIcon from '@mui/icons-material/Refresh'; // Import the Refresh icon from Material-UI
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon from Material-UI
 import axios from 'axios'; // Import axios for HTTP requests
 
 const Italian = () => {
@@ -103,6 +105,15 @@ const Italian = () => {
     }
   };
 
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
   const handleParagraphClick = (paragraph) => {
     setParagraph(paragraph.paragraph);
     setTranslation(paragraph.translation);
@@ -128,6 +139,9 @@ const Italian = () => {
             <button onClick={handleLoad} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 flex items-center">
               <LoadIcon className="mr-2" /> Load
             </button>
+            <button onClick={handleRefresh} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 flex items-center">
+              <AddIcon className="mr-2" /> New
+            </button>
           </div>
         </div>
         {loadingSavedParagraphs && <p>Loading saved paragraphs...</p>}
@@ -137,7 +151,7 @@ const Italian = () => {
             <ul className="list-disc pl-5">
               {savedParagraphs.map((item, index) => (
                 <li key={index} className="cursor-pointer hover:underline" onClick={() => handleParagraphClick(item)}>
-                  {item.paragraph.substring(0, 20)}...
+                  {item.title} - {formatDate(item.timestamp)}
                 </li>
               ))}
             </ul>

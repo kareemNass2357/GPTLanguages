@@ -15,7 +15,7 @@ const Navbar = () => {
             <NavLink className='flex flex-shrink-0 items-center mr-4' to='/'>
               <img className='h-10 w-auto' src={logo} alt='React Jobs' />
               <span className='hidden md:block text-white text-2xl font-bold ml-2'>
-                React Jobs
+              BuildU Languages
               </span>
             </NavLink>
             <div className='md:ml-auto'>
@@ -23,7 +23,7 @@ const Navbar = () => {
                 <NavLink to='/' className={linkClass}>
                   Home
                 </NavLink>
-                <NavLink to='/jobs' className={linkClass}>
+                {/* <NavLink to='/jobs' className={linkClass}>
                   Jobs
                 </NavLink>
                 <NavLink to='/add-job' className={linkClass}>
@@ -31,7 +31,7 @@ const Navbar = () => {
                 </NavLink>
                 <NavLink to='/editor' className={linkClass}>
                   Editor
-                </NavLink>
+                </NavLink> */}
               </div>
             </div>
           </div>

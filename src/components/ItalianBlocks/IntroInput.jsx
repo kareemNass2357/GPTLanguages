@@ -134,8 +134,9 @@ const IntroInput = ({ onDone }) => {
               ))}
             </div>
             <div className="flex justify-end">
-              <button onClick={() => handleDone(inputValue)} onMouseDown={handleMouseClick} className="next-btn px-4 py-2 bg-blue-500 text-white rounded flex items-center">
-                Next <ArrowForwardIcon className="ml-2" />
+              <button onClick={() => handleDone(inputValue)} onMouseDown={handleMouseClick} className="next-btn px-4 py-2 bg-blue-500 text-white rounded flex flex-col items-center">
+                Next
+                <ArrowForwardIcon style={{ marginTop: '8px' }} /> {/* Adjust the margin to position the icon lower */}
               </button>
             </div>
           </div>
