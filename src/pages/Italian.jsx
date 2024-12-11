@@ -103,7 +103,8 @@ const Italian = () => {
     setShowIntro(false); // Hide the IntroInput component
     setShouldFetch(false); // Prevent fetching from OpenAI
     setInitialParagraph(paragraph.paragraph); // Set the initial paragraph
-     setStackedLayout(false); // Ensure the layout toggle button is shown
+    setStackedLayout(false); // Ensure the layout toggle button is shown
+    setSavedParagraphs([]); // Hide the list of saved paragraphs
   };
 
   return (
