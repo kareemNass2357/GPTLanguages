@@ -12,14 +12,14 @@ const SizeButton = ({ onClick, icon }) => (
   </button>
 );
 
-const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate, translation, highlightedLine, setHighlightedLine, showTranslation }) => {
+const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate, translation, highlightedLine, setHighlightedLine, showTranslation, shouldFetch, initialParagraph }) => {
   const {
     setParagraph,
     fetchParagraph,
     nightMode,
   } = useItalian();
 
-  const [paragraph, setLocalParagraph] = useState('');
+  const [paragraph, setLocalParagraph] = useState(initialParagraph || '');
   const [isFetched, setIsFetched] = useState(false); // Added to track if the paragraph is already fetched
   const [loading, setLoading] = useState(false);
 
@@ -40,10 +40,10 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
   };
 
   useEffect(() => {
-    if (description.trim() && !isFetched) {
-      handleFetchParagraph(); // Fetch only if not already fetched
+    if (description.trim() && !isFetched && shouldFetch) {
+      handleFetchParagraph(); // Fetch only if not already fetched and shouldFetch is true
     }
-  }, [description, isFetched]); // Depend on `isFetched` to avoid repeated calls
+  }, [description, isFetched, shouldFetch]); // Depend on `isFetched` and `shouldFetch` to avoid repeated calls
 
   const handleRefresh = async () => {
     setLoading(true);
