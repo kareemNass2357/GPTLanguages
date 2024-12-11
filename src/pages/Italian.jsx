@@ -70,9 +70,16 @@ const Italian = () => {
   };
 
   const handleSave = async () => {
+    const title = prompt('Enter a title for this save:');
+    if (!title) {
+      alert('Title is required to save.');
+      return;
+    }
     const dataToSave = {
       paragraph,
       translation,
+      title,
+      timestamp: new Date().toISOString(),
     };
     try {
       await axios.post('http://localhost:8000/savedData', dataToSave);
