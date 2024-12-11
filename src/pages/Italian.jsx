@@ -103,6 +103,7 @@ const Italian = () => {
     setShowIntro(false); // Hide the IntroInput component
     setShouldFetch(false); // Prevent fetching from OpenAI
     setInitialParagraph(paragraph.paragraph); // Set the initial paragraph
+     setStackedLayout(false); // Ensure the layout toggle button is shown
   };
 
   return (
@@ -170,31 +171,38 @@ const Italian = () => {
           </>
         )}
         {!description && paragraph && (
-          <div className={`flex w-full md:w-[70vw] ${stackedLayout ? 'flex-col' : 'justify-between'}`}>
-            <FirstParagraph 
-              description={paragraph} 
-              onNext={paragraphAssigned} 
-              fontSize={fontSize} 
-              onFontSizeChange={handleFontSizeChange} 
-              onTranslate={handleTranslate}
-              translation={translation}
-              highlightedLine={highlightedLine}
-              setHighlightedLine={setHighlightedLine}
-              showTranslation={showTranslation}
-              shouldFetch={shouldFetch}
-              initialParagraph={initialParagraph}
-            />
-            {paragraph && showTranslation && (
-              <ParagraphTranslate 
+          <>
+            {showTranslation && (
+              <button onClick={toggleLayout} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mb-4 flex items-center">
+                {stackedLayout ? <ViewColumnIcon className="mr-2" /> : <ViewStreamIcon className="mr-2" />} Toggle Layout
+              </button>
+            )}
+            <div className={`flex w-full md:w-[70vw] ${stackedLayout ? 'flex-col' : 'justify-between'}`}>
+              <FirstParagraph 
+                description={paragraph} 
+                onNext={paragraphAssigned} 
                 fontSize={fontSize} 
-                translation={translation} 
-                loading={loadingTranslation} 
-                error={translationError} 
+                onFontSizeChange={handleFontSizeChange} 
+                onTranslate={handleTranslate}
+                translation={translation}
                 highlightedLine={highlightedLine}
                 setHighlightedLine={setHighlightedLine}
+                showTranslation={showTranslation}
+                shouldFetch={shouldFetch}
+                initialParagraph={initialParagraph}
               />
-            )}
-          </div>
+              {paragraph && showTranslation && (
+                <ParagraphTranslate 
+                  fontSize={fontSize} 
+                  translation={translation} 
+                  loading={loadingTranslation} 
+                  error={translationError} 
+                  highlightedLine={highlightedLine}
+                  setHighlightedLine={setHighlightedLine}
+                />
+              )}
+            </div>
+          </>
         )}
         {/* {verbDetailsLoading && <p>Loading verb details...</p>} */}
         {/* {verbDetails && <VerbDetails details={verbDetails} />} */}
