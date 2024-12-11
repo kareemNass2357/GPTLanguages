@@ -7,6 +7,9 @@ import ToggleNightMode from '../components/ToggleNightMode';
 import { useItalian } from '../context/ItalianContext';
 import ViewColumnIcon from '@mui/icons-material/ViewColumn'; // Import the ViewColumn icon from Material-UI
 import ViewStreamIcon from '@mui/icons-material/ViewStream'; // Import the ViewStream icon from Material-UI
+import SaveIcon from '@mui/icons-material/Save'; // Import the Save icon from Material-UI
+import axios from 'axios'; // Import axios for HTTP requests
+
 
 const Italian = () => {
   const {
@@ -62,12 +65,31 @@ const Italian = () => {
     setStackedLayout(!stackedLayout);
   };
 
+  const handleSave = async () => {
+    const dataToSave = {
+      paragraph,
+      translation,
+    };
+    try {
+      await axios.post('http://localhost:8000/savedData', dataToSave);
+      alert('Data saved successfully!');
+    } catch (error) {
+      console.error('Error saving data:', error);
+      alert('Error saving data. Please try again.');
+    }
+  };
+
   return (
     <div className={nightMode ? 'night-mode' : ''}>
       <section className='flex flex-col justify-center items-center h-full'>
         <div className="w-full md:w-[70vw] flex justify-center">
           <ToggleNightMode nightMode={nightMode} toggleNightMode={toggleNightMode} />
         </div>
+        {showTranslation && (
+          <button onClick={handleSave} className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 mb-4 flex items-center">
+            <SaveIcon className="mr-2" /> Save
+          </button>
+        )}
         {showIntro && <IntroInput onDone={handleIntroInputDoneWrapper} />}
         {description && (
           <>
