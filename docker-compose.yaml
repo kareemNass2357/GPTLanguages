@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  app:
+    image: languagesgpt
+    build: .
+    ports:
+      - "${PROD_PORT}:${PROD_PORT}" # Map container's React app port to host
+      - "${PROD_JSON_PORT}:${PROD_JSON_PORT}" # Map container's JSON server port to host
+    volumes:
+      - "${PROD_DB_PATH}:${PROD_DB_CONTAINER_PATH}" # Production database mapping
+      - "${DEV_DB_PATH}:${DEV_DB_CONTAINER_PATH}" # Development database mapping (optional if needed in container)
+    env_file:
+      - .env.docker

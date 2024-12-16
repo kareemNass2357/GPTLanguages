@@ -1,5 +1,5 @@
 # Use the official Node.js image as the base image
-FROM node:14
+FROM node:18
 
 # Set the working directory
 WORKDIR /app
@@ -19,8 +19,8 @@ RUN npm run build
 # Install a simple HTTP server to serve the static files
 RUN npm install -g serve
 
-# Expose the port the app runs on
-EXPOSE 5000
+# Copy the environment file
+COPY .env.docker .env
 
-# Command to run the application
-CMD ["serve", "-s", "build", "-l", "5000"]
+# Start the production server
+CMD ["sh", "-c", "npm run start"]

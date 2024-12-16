@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite\" \"json-server --watch db.json --port 8000\"",
+    "dev": "node -r dotenv/config node_modules/concurrently \"vite --host $DEV_HOST --port $DEV_PORT\" \"json-server --watch $DEV_DB_PATH --port $DEV_JSON_PORT\"",
     "build": "vite build",
+    "start": "node -r dotenv/config node_modules/concurrently \"serve -s build --listen $PROD_PORT\" \"json-server --watch $PROD_DB_PATH --port $PROD_JSON_PORT\"",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "server": "json-server --watch db.json --port 8000"
+    "preview": "vite preview"
   },
   "dependencies": {
+    "concurrently": "^7.6.0",
     "@editorjs/code": "^2.4.0",
     "@editorjs/editorjs": "^2.27.0",
     "@editorjs/embed": "^2.5.0",
@@ -25,6 +26,7 @@
     "@mui/icons-material": "^6.1.10",
     "@mui/material": "^6.1.10",
     "axios": "^1.4.0",
+    "dotenv": "^16.4.7",
     "file-saver": "^2.0.5",
     "openai": "^4.73.0",
     "react": "^18.2.0",
