@@ -1,44 +1,55 @@
-# React Jobs Project (YouTube)
+# project from (YouTube)
 
 This is the jobs listing project from the [YouTube crash course](https://youtu.be/LDB4uaJ87e0).
 
-<img src="public/screen.png" />
 
-## Usage
 
-This project uses JSON-Server for a mock backend.
+This is a jobs listing application built with React, using **Vite** and **JSON-Server**. It supports **development** and **production** environments, with separate databases and Dockerized production.
 
-### Install Dependencies
+## Technologies Used
+- **React**: Frontend framework.
+- **Vite**: Fast development build tool.
+- **JSON-Server**: Mock REST API.
+- **Docker**: Containerization for production.
+- **dotenv**: Environment variable management.
 
-```bash
-npm init -y              (so we can have things installed locally)
-npm install
-```
+## Features
+- **Development and Production JSON Databases**:
+  - `languages_db_dev.json`: For development.
+  - `languages_db.json`: For production, persists data across restarts.
+- **Dynamic Configurations**: Managed via `.env` files for ports and database paths.
+- **Containerized Production**: Optimized builds with persistent storage.
 
-### Run JSON Server
+## Setup
 
-The server will run on http://localhost:8000
+### Development
+1. Install dependencies: `npm install`
+2. Start development environment: `npm run dev`
+   - React: `http://localhost:3000`
+   - Mock API: `http://localhost:8000`
 
-```bash
-npm run server
-```
+### Production
+1. Build and run Docker: `docker-compose --env-file .env.docker up --build`
+2. Access production:
+   - React: `http://localhost:3003`
+   - Mock API: `http://localhost:8008`
+3. Stop: `docker-compose down`
 
-### Run Vite Frontend
+## Environment Variables
 
-React will run on http://localhost:3000
+### `.env` (Development)
+- DEV_PORT: `3000`
+- DEV_JSON_PORT: `8000`
+- DEV_DB_PATH: Path to `languages_db_dev.json`
 
-```bash
-npm run dev
-```
+### `.env.docker` (Production)
+- PROD_PORT: `3003`
+- PROD_JSON_PORT: `8008`
+- PROD_DB_PATH: Path to `languages_db.json`
 
-### Build for Production
+## Structure
+- **Frontend**: React with Vite.
+- **Backend**: JSON-Server.
+- **Containerization**: Docker for production.
 
-```bash
-npm run build
-```
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
+Persistent data is stored in JSON files mapped as volumes in Docker.

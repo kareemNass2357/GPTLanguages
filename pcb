@@ -1,0 +1,4 @@
+it seems like docker loades correctly
+npm dev also loads cotrectly
+
+now we need compose up to work
