@@ -19,8 +19,5 @@ RUN npm run build
 # Install a simple HTTP server to serve the static files
 RUN npm install -g serve
 
-# Copy the environment file
-COPY .env.docker .env
-
 # Start the production server
 CMD ["sh", "-c", "npm run start"]

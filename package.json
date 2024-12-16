@@ -3,14 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "install-deps": "npm install dotenv-cli cross-var concurrently vite eslint json-server",
-    "dev": "dotenv -e .env cross-var concurrently \"vite --host=%DEV_HOST% --port=%DEV_PORT%\" \"json-server --watch %DEV_DB_PATH% --port=%DEV_JSON_PORT%\"",
-    "build": "vite build",
-    "start": "dotenv -e .env.docker cross-var concurrently \"serve -s build --listen=%PROD_PORT%\" \"json-server --watch %PROD_DB_PATH% --port=%PROD_JSON_PORT%\"",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-  },
+"scripts": {
+  "install-deps": "npm install dotenv-cli cross-var concurrently vite eslint json-server",
+  "dev": "dotenv -e .env cross-var concurrently \"vite --host=%DEV_HOST% --port=%DEV_PORT%\" \"json-server --watch %DEV_DB_PATH% --port=%DEV_JSON_PORT%\"",
+  "build": "vite build",
+  "start": "dotenv -e .env.docker cross-var concurrently \"node print-env.js\" \"serve -s dist --listen=%PROD_PORT%\" \"json-server --watch %PROD_DB_PATH% --port=%PROD_JSON_PORT%\"",
+  "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+  "preview": "vite preview",
+  "print-env": "node print-env.js"
+},
   "dependencies": {
     "dotenv-cli": "^3.0.0",
     "cross-var": "^1.1.0",

@@ -10,4 +10,5 @@ services:
       - "${PROD_DB_PATH}:${PROD_DB_CONTAINER_PATH}" # Production database mapping
       - "${DEV_DB_PATH}:${DEV_DB_CONTAINER_PATH}" # Development database mapping (optional if needed in container)
     env_file:
-      - /Users/kareem/Documents/BuildU/Codes/GPTLanguages/.env.docker
+      - .env.docker
+    command: "npm start"
