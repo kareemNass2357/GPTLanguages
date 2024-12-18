@@ -38,13 +38,13 @@ This is a jobs listing application built with React, using **Vite** and **JSON-S
 ## Environment Variables
 
 ### `.env` (Development)
-- DEV_PORT: `3000`
-- DEV_JSON_PORT: `8000`
-- DEV_DB_PATH: Path to `languages_db_dev.json`
+- PORT: `3000`
+- DB_SERVER_PORT: `8000`
+- DB_PATH: Path to `languages_db_dev.json`
 
 ### `.env.docker` (Production)
-- PROD_PORT: `3003`
-- PROD_JSON_PORT: `8008`
+- PORT: `3003`
+- DB_SERVER_PORT: `8008`
 - PROD_DB_PATH: Path to `languages_db.json`
 
 ## Structure

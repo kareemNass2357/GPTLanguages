@@ -1,14 +1,19 @@
-# we need to run it with:docker-compose --env-file .env.docker up --build
+# we need to run it with:
+#docker-compose --env-file .env.docker up --build
 services:
   app:
     image: languagesgpt
     build: .
     ports:
-      - "${PROD_PORT}:${PROD_PORT}" # Map container's React app port to host
-      - "${PROD_JSON_PORT}:${PROD_JSON_PORT}" # Map container's JSON server port to host
+      - "3003:3003" # Map container's React app port to host
+      - "8008:8008" # Map container's JSON server port to host
     volumes:
-      - "${PROD_DB_PATH}:${PROD_DB_CONTAINER_PATH}" # Production database mapping
-      - "${DEV_DB_PATH}:${DEV_DB_CONTAINER_PATH}" # Development database mapping (optional if needed in container)
+      - "/mnt/wsl.localhost/Ubuntu-24.04/home/kareem2357/wsl_ms/languagesgpt/GPTLanguages/docker_databases/languages_db.json:/app/languages_db.json" # Production database mapping
+      - "/mnt/wsl.localhost/Ubuntu-24.04/home/kareem2357/wsl_ms/languagesgpt/GPTLanguages/docker_databases/languages_db_dev.json:/app/languages_db_dev.json" # Development database mapping (optional if needed in container)
     env_file:
       - .env.docker
     command: "npm start"
+
+networks:
+  default:
+    driver: bridge

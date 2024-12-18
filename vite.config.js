@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const port = process.env.PORT || 3000;
-const proxyTarget = process.env.PROXY_TARGET_VITE || 'http://localhost:8000';
+const proxyTarget = process.env.DB_SERVER_URL || 'http://localhost:8000';
 
 export default defineConfig({
   plugins: [react()],

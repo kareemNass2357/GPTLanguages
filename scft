@@ -1,0 +1,22 @@
+# Docker Compose shortcuts
+alias dcup="docker-compose --env-file .env.docker up"
+alias dcdn="docker-compose down"
+alias dcrst="docker-compose restart"
+alias dclogs="docker-compose logs"
+alias dcbup="docker-compose --env-file .env.docker up --build"
+
+# Navigation shortcuts
+alias cdbu="cd /home/kareem2357/BuildU-rightnow-poc-1"
+alias cdms="cd /mnt/d/services"
+alias cdwms="cd /home/kareem2357/wsl_ms/"
+
+# Useful terminal shortcuts
+alias cls="clear"
+alias ll="ls -la"
+alias gs="git status"
+alias gp="git pull"
+alias gco="git checkout"
+
+# Project management shortcuts
+alias dev="npm run dev"
+alias dcup_temp="docker-compose up -d --remove-orphans"

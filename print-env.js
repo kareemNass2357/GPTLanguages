@@ -1,8 +1,7 @@
 // print-env.js
 console.log('Environment Variables:');
-console.log('PROD_PORT:', process.env.PROD_PORT);
-console.log('PROD_JSON_PORT:', process.env.PROD_JSON_PORT);
-console.log('PROD_DB_PATH:', process.env.PROD_DB_PATH);
-console.log('PROD_DB_CONTAINER_PATH:', process.env.PROD_DB_CONTAINER_PATH);
-console.log('DEV_DB_PATH:', process.env.DEV_DB_PATH);
-console.log('DEV_DB_CONTAINER_PATH:', process.env.DEV_DB_CONTAINER_PATH);
+console.log('PORT:', process.env.PORT);
+console.log('DB_SERVER_PORT:', process.env.DB_SERVER_PORT);
+console.log('DB_SERVER_URL:', process.env.DB_SERVER_URL);
+console.log('DB_PATH:', process.env.DB_PATH);
+console.log('DB_CONTAINER_PATH:', process.env.DB_CONTAINER_PATH);
