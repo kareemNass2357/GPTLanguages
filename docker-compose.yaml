@@ -8,8 +8,8 @@ services:
       - "3003:3003" # Map container's React app port to host
       - "8008:8008" # Map container's JSON server port to host
     volumes:
-      - "/mnt/wsl.localhost/Ubuntu-24.04/home/kareem2357/wsl_ms/languagesgpt/GPTLanguages/docker_databases/languages_db.json:/app/languages_db.json" # Production database mapping
-      - "/mnt/wsl.localhost/Ubuntu-24.04/home/kareem2357/wsl_ms/languagesgpt/GPTLanguages/docker_databases/languages_db_dev.json:/app/languages_db_dev.json" # Development database mapping (optional if needed in container)
+      - "./docker_databases/languages_db.json:/app/languages_db.json" # Production database mapping
+      - "./docker_databases/languages_db_dev.json:/app/languages_db_dev.json" # Development database mapping (optional if needed in container)
     env_file:
       - .env.docker
     command: "npm start"
