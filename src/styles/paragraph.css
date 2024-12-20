@@ -1,0 +1,33 @@
+.paragraph-container {
+  line-height: 1.5;
+  text-align: left; /* Align text to the left */
+}
+
+.paragraph-line {
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 10px; /* Add padding to the left */
+  /* Adjust the highlight color to be 50% of the current brightness */
+  background-color: rgba(255, 255, 0, 0.5); /* 50% brightness of bright yellow */
+}
+
+.paragraph-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.paragraph-line:hover::before {
+  width: 100%;
+}
+
+.paragraph-line:hover {
+  font-size: 115%; /* Increase font size by 15% on hover */
+  color: var(--primary-color);
+  font-weight: bold;
+}

@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap');
+
+:root {
+  --primary-color: #FF6B6B;
+  --secondary-color: #4ECDC4;
+  --background-color: #ffffff;
+  --text-color: #2D3436;
+  --accent-color: #FFD93D;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 28px; /* Reduced from 40px */
+  background: #fffcc1;
+  padding: 10px; /* Reduced from 20px */
+}
+
+* {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  background-image: 
+    radial-gradient(circle at 10px 10px, #f0f0f0 2%, transparent 2%),
+    radial-gradient(circle at 30px 30px, #f0f0f0 2%, transparent 2%);
+  background-size: 40px 40px;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 24px; /* Increased padding for a more bubbly look */
+  border-radius: 50px; /* Increased border-radius for a more rounded shape */
+  font-size: 1em; /* Adjusted font size */
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 10px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2); /* Darker shadow for a more 3D effect */
+}
+
+button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2); /* Adjusted shadow for hover effect */
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2); /* Adjusted shadow for active state */
+}
+
+input, textarea {
+  background-color: white;
+  border: 3px solid var(--secondary-color);
+  color: var(--text-color);
+  padding: 5px 10px; /* Reduced from 10px 15px */
+  border-radius: 15px;
+  margin: 5px;
+  font-size: 0.9em; /* Reduced from 1em */
+  box-shadow: 0 4px 0 var(--shadow-color);
+}
+
+.container {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 0 var(--shadow-color);
+  padding: 10px; /* Reduced from 20px */
+  border: 3px solid var(--accent-color);
+}
+
+p {
+  text-align: center;
+  letter-spacing: 10px; /* Reduced from 15px */
+  background: #34495e;
+  color: #FFF;
+}
+
+p.morning {
+  background: #e67e22;
+}
