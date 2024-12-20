@@ -8,13 +8,15 @@
   --accent-color: #FFD93D;
   --shadow-color: rgba(0, 0, 0, 0.1);
 }
-
+body {
+  background-color: rgb(44, 62, 80); /* Set the background color to rgb(140, 70, 58) */
+}
 html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-size: 28px; /* Reduced from 40px */
-  background: #fffcc1;
+  background: rgb(44, 62, 80);
   padding: 10px; /* Reduced from 20px */
 }
 
