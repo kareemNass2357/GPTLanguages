@@ -15,8 +15,13 @@ export const formatText = (text, highlightedLine, handleMouseEnter, handleMouseL
   return formattedSentences.map((sentence, index) => (
     <p
       key={index}
-      className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''} new-line`}
-      style={{ backgroundColor: highlightedLine === index + 1 ? 'rgba(255, 255, 0, 0.5)' : 'transparent', lineHeight: '3', fontSize: `${fontSize}px` }}
+      className={`paragraph-line text-left  ${highlightedLine === index + 1 ? 'highlight' : ''} new-line`}
+      style={{ 
+        backgroundColor: highlightedLine === index + 1 ? 'rgba(255, 255, 0, 0.3)' : 'transparent', 
+        lineHeight: '1.5', // Reduced line height
+        fontSize: `${fontSize}px`,
+        letterSpacing: '0.5px' // Reduced letter spacing
+      }}
       onMouseEnter={() => handleMouseEnter(index + 1)}
       onMouseLeave={handleMouseLeave}
     >
