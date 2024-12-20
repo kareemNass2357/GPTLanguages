@@ -84,7 +84,8 @@ const Italian = () => {
       timestamp: new Date().toISOString(),
     };
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/savedData`, dataToSave);
+      console.log('Saving to:', `${import.meta.env.VITE_DB_SERVER_URL}/savedData`);
+      await axios.post(`${import.meta.env.VITE_DB_SERVER_URL}/savedData`, dataToSave);
       alert('Data saved successfully!');
     } catch (error) {
       console.error('Error saving data:', error);
@@ -95,7 +96,8 @@ const Italian = () => {
   const handleLoad = async () => {
     setLoadingSavedParagraphs(true);
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/savedData`);
+      console.log('Loading from:', `${import.meta.env.VITE_DB_SERVER_URL}/savedData`);
+      const response = await axios.get(`${import.meta.env.VITE_DB_SERVER_URL}/savedData`);
       setSavedParagraphs(response.data);
     } catch (error) {
       console.error('Error loading saved paragraphs:', error);
