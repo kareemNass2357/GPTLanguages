@@ -80,7 +80,7 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
       <p
         key={index}
         className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''} new-line`}
-        style={{ backgroundColor: highlightedLine === index + 1 ? 'yellow' : 'transparent', lineHeight: '3' }}
+        style={{ backgroundColor: highlightedLine === index + 1 ? 'rgba(255, 255, 0, 0.5)' : 'transparent', lineHeight: '3' }} // Adjusted highlight color
         onMouseEnter={() => handleMouseEnter(index + 1)}
         onMouseLeave={handleMouseLeave}
       >
@@ -91,7 +91,7 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
 
   return (
     <div className={`w-full md:w-[48%] border border-black p-5 m-2 rounded mx-auto overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px` }}>
-      <div className="flex justify-between mb-2">
+      <div className="flex  mb-2">
         <div className="small-font">First Paragraph</div>
         <div className="flex gap-2">
           <SizeButton onClick={decreaseFontSize} icon={<RemoveIcon />} />
@@ -108,7 +108,7 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
         )}
       </div>
       {!showTranslation && (
-        <div className="flex justify-center mt-2 gap-4">
+        <div className="flex mt-2 gap-4">
           <button onClick={handleRefresh} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 flex items-center">
             <RefreshIcon className="mr-2" /> Refresh
           </button>

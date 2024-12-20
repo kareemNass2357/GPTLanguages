@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito:800i&display=swap');
+/* Add the new font import */
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap');
 
 :root {
   --primary-color: #FF6B6B;
@@ -13,7 +14,6 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Nunito', sans-serif;
   font-size: 28px; /* Reduced from 40px */
   background: #fffcc1;
   padding: 10px; /* Reduced from 20px */
@@ -26,7 +26,6 @@ html, body {
 body {
   background-color: var(--background-color);
   color: var(--text-color);
-  font-family: 'Fredoka One', 'Rajdhani', sans-serif;
   margin: 0;
   padding: 20px;
   min-height: 100vh;
@@ -473,6 +472,8 @@ p.morning {
   transition: all 0.3s ease;
   position: relative;
   padding-left: 10px; /* Add padding to the left */
+  /* Adjust the highlight color to be 50% of the current brightness */
+  background-color: rgba(255, 255, 0, 0.5); /* 50% brightness of bright yellow */
 }
 
 .paragraph-line::before {
@@ -595,4 +596,20 @@ p.morning {
 
 .button-82-pushable:focus:not(:focus-visible) {
   outline: none;
+}
+
+/* Add the new font class */
+.funnel-display-unique {
+  font-family: "Funnel Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Use a value from 300 to 800 */
+  font-style: normal;
+}
+
+/* Add the new font class */
+.funnel-display-header {
+  font-family: "Funnel Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 600; /* Use a value from 300 to 800 */
+  font-style: normal;
 }
