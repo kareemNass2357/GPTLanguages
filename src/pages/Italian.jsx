@@ -145,7 +145,7 @@ const Italian = () => {
             <button onClick={handleRefresh} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 flex items-center">
               <AddIcon className="mr-2" /> New
             </button>
-            <SizeButtons onIncrease={() => handleFontSizeChange(fontSize + 1)} onDecrease={() => handleFontSizeChange(fontSize - 1)} nightMode={nightMode} />
+            <SizeButtons fontSize={fontSize} setFontSize={setFontSize} nightMode={nightMode} />
           </div>
         </div>
         {loadingSavedParagraphs && <p>Loading saved paragraphs...</p>}

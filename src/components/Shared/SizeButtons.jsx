@@ -12,25 +12,35 @@ const SizeButton = ({ onClick, icon }) => (
  * SizeButtons component
  * 
  * Props:
- * - onIncrease: Function to call when the increase button is clicked
- * - onDecrease: Function to call when the decrease button is clicked
+ * - fontSize: The current font size
+ * - setFontSize: Function to update the font size
  * - nightMode: Boolean indicating if night mode is enabled
  * 
  * Usage:
  * 
- * <SizeButtons onIncrease={increaseFontSize} onDecrease={decreaseFontSize} nightMode={nightMode} />
+ * <SizeButtons fontSize={fontSize} setFontSize={setFontSize} nightMode={nightMode} />
  * 
- * Ensure that the `increaseFontSize` and `decreaseFontSize` functions are defined in the parent component
+ * Ensure that the `fontSize` and `setFontSize` functions are defined in the parent component
  * and update the shared state for font size. This way, changes in one component will reflect in the other.
  */
-const SizeButtons = ({ onIncrease, onDecrease, nightMode }) => (
-  <div className={`flex items-center rounded shadow px-4 py-2 ${nightMode ? 'bg-1abc9c text-white hover:bg-gray-600' : 'bg-green-500 text-white hover:bg-green-700'}`} style={{ boxShadow: '0 6px 0 rgba(0, 0, 0, 0.2)' }}>
-    <span className="mr-2">Font</span>
-    <div className="flex gap-1">
-      <SizeButton onClick={onDecrease} icon={<RemoveIcon />} />
-      <SizeButton onClick={onIncrease} icon={<AddIcon />} />
+const SizeButtons = ({ fontSize, setFontSize, nightMode }) => {
+  const increaseFontSize = () => {
+    setFontSize(fontSize + 1);
+  };
+
+  const decreaseFontSize = () => {
+    setFontSize(fontSize - 1);
+  };
+
+  return (
+    <div className={`flex items-center rounded shadow px-4 py-2 ${nightMode ? 'bg-1abc9c text-white hover:bg-gray-600' : 'bg-green-500 text-white hover:bg-green-700'}`} style={{ boxShadow: '0 6px 0 rgba(0, 0, 0, 0.2)' }}>
+      <span className="mr-2">Font</span>
+      <div className="flex gap-1">
+        <SizeButton onClick={decreaseFontSize} icon={<RemoveIcon />} />
+        <SizeButton onClick={increaseFontSize} icon={<AddIcon />} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default SizeButtons;
