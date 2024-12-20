@@ -33,13 +33,13 @@ const SizeButtons = ({ fontSize, setFontSize, nightMode }) => {
   };
 
   return (
-    <div className={`flex items-center rounded shadow px-4 py-2 ${nightMode ? 'bg-1abc9c text-white hover:bg-gray-600' : 'bg-green-500 text-white hover:bg-green-700'}`} style={{ boxShadow: '0 6px 0 rgba(0, 0, 0, 0.2)' }}>
+    <button className={`flex items-center rounded shadow px-4 py-2 ${nightMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-green-600 text-white hover:bg-green-700'}`} style={{ boxShadow: '0 6px 0 rgba(0, 0, 0, 0.2)' }}>
       <span className="mr-2">Font</span>
       <div className="flex gap-1">
         <SizeButton onClick={decreaseFontSize} icon={<RemoveIcon />} />
         <SizeButton onClick={increaseFontSize} icon={<AddIcon />} />
       </div>
-    </div>
+    </button>
   );
 };
 
