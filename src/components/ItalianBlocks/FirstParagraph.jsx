@@ -2,17 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useItalian } from '../../context/ItalianContext';
 import './animations.css'; // Import the CSS file
 import RefreshIcon from '@mui/icons-material/Refresh'; // Import the Refresh icon from Material-UI
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon from Material-UI
-import RemoveIcon from '@mui/icons-material/Remove'; // Import the Remove icon from Material-UI
 import TranslateIcon from '@mui/icons-material/Translate'; // Import the Translate icon from Material-UI
+import { formatText } from '../../utils/formatText'; // Import the shared formatText function
 
-const SizeButton = ({ onClick, icon }) => (
-  <button onClick={onClick} className="size-btn px-1 py-1 bg-gray-300 rounded w-6 h-6 flex items-center justify-center text-sm">
-    {icon}
-  </button>
-);
-
-const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTranslate, translation, highlightedLine, setHighlightedLine, showTranslation, shouldFetch, initialParagraph }) => {
+const FirstParagraph = ({ description, onNext, fontSize, onTranslate, translation, highlightedLine, setHighlightedLine, showTranslation, shouldFetch, initialParagraph }) => {
   const {
     setParagraph,
     fetchParagraph,
@@ -58,14 +51,6 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
     }
   };
 
-  const increaseFontSize = () => {
-    onFontSizeChange(fontSize + 1);
-  };
-
-  const decreaseFontSize = () => {
-    onFontSizeChange(fontSize - 1);
-  };
-
   const handleMouseEnter = (lineIndex) => {
     setHighlightedLine(lineIndex);
     console.log('Highlighted line number:', lineIndex);
@@ -75,35 +60,17 @@ const FirstParagraph = ({ description, onNext, fontSize, onFontSizeChange, onTra
     setHighlightedLine('');
   };
 
-  const formatText = (text) => {
-    return text.split('.').map((sentence, index) => (
-      <p
-        key={index}
-        className={`paragraph-line text-left ${highlightedLine === index + 1 ? 'highlight' : ''} new-line`}
-        style={{ backgroundColor: highlightedLine === index + 1 ? 'rgba(255, 255, 0, 0.5)' : 'transparent', lineHeight: '3' }} // Adjusted highlight color
-        onMouseEnter={() => handleMouseEnter(index + 1)}
-        onMouseLeave={handleMouseLeave}
-      >
-        {sentence.trim()}.
-      </p>
-    ));
-  };
-
   return (
     <div className={`w-full md:w-[48%] border border-black p-5 m-2 rounded mx-auto overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px` }}>
-      <div className="flex  mb-2">
+      <div className="flex mb-2">
         <div className="small-font">First Paragraph</div>
-        <div className="flex gap-2">
-          <SizeButton onClick={decreaseFontSize} icon={<RemoveIcon />} />
-          <SizeButton onClick={increaseFontSize} icon={<AddIcon />} />
-        </div>
       </div>
       <div className="mb-2">
         {loading ? (
           'Loading...'
         ) : (
           <div className="paragraph-container">
-            {formatText(paragraph)}
+            {formatText(paragraph, highlightedLine, handleMouseEnter, handleMouseLeave, fontSize)}
           </div>
         )}
       </div>

@@ -12,6 +12,7 @@ import LoadIcon from '@mui/icons-material/CloudDownload'; // Import the Load ico
 import RefreshIcon from '@mui/icons-material/Refresh'; // Import the Refresh icon from Material-UI
 import AddIcon from '@mui/icons-material/Add'; // Import the Add icon from Material-UI
 import axios from 'axios'; // Import axios for HTTP requests
+import SizeButtons from '../components/Shared/SizeButtons'; // Import the shared SizeButtons component
 
 const Italian = () => {
   const {
@@ -144,6 +145,7 @@ const Italian = () => {
             <button onClick={handleRefresh} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 flex items-center">
               <AddIcon className="mr-2" /> New
             </button>
+            <SizeButtons onIncrease={() => handleFontSizeChange(fontSize + 1)} onDecrease={() => handleFontSizeChange(fontSize - 1)} nightMode={nightMode} />
           </div>
         </div>
         {loadingSavedParagraphs && <p>Loading saved paragraphs...</p>}

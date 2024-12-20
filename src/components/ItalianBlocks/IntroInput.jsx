@@ -81,10 +81,6 @@ const IntroInput = ({ onDone }) => {
     button.style.setProperty('--rotate-y', `${rotateY}deg`);
   };
 
-  const handleFontSizeChange = (change) => {
-    setFontSize((prevSize) => Math.max(10, prevSize + change)); // Ensure font size doesn't go below 10
-  };
-
   // Add event listener for Ctrl + Enter key
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -108,8 +104,6 @@ const IntroInput = ({ onDone }) => {
           <div className="flex justify-between mb-1">
             <div className="small-font">Please enter a topic. A paragraph will be built about it.</div>
             <div className="flex gap-2">
-              <button onClick={() => handleFontSizeChange(-2)} className="px-2 py-1 bg-gray-300 rounded"><RemoveIcon /></button>
-              <button onClick={() => handleFontSizeChange(2)} className="px-2 py-1 bg-gray-300 rounded"><AddIcon /></button>
             </div>
           </div>
           <textarea
