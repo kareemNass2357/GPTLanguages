@@ -130,7 +130,7 @@ const Italian = () => {
 
   return (
     <div className={nightMode ? 'night-mode' : ''}>
-      <section className='flex flex-col justify-center items-center h-full'>
+      <section className="flex flex-col justify-center items-center w-full h-full sm:p-0 md:p-4">
         <div className="w-full md:w-[70vw] flex justify-between items-center">
           <ToggleNightMode nightMode={nightMode} toggleNightMode={toggleNightMode} />
           <div className="flex items-center gap-4">
@@ -169,8 +169,9 @@ const Italian = () => {
                 {stackedLayout ? <ViewColumnIcon className="mr-2" /> : <ViewStreamIcon className="mr-2" />} Toggle Layout
               </button>
             )}
-            <div className={`flex w-full md:w-[70vw] ${stackedLayout ? 'flex-col' : 'justify-between'}`}>
-              <FirstParagraph 
+                          <div className={`flex w-full xl:w-[70%] ${stackedLayout ? 'flex-col' : 'justify-between'}`}>   
+               
+               <FirstParagraph 
                 description={description} 
                 onNext={paragraphAssigned} 
                 fontSize={fontSize} 
@@ -203,7 +204,7 @@ const Italian = () => {
                 {stackedLayout ? <ViewColumnIcon className="mr-2" /> : <ViewStreamIcon className="mr-2" />} Toggle Layout
               </button>
             )}
-            <div className={`flex w-full md:w-[70vw] ${stackedLayout ? 'flex-col' : 'justify-between'}`}>
+            <div className={`flex w-full md:w-[70%] ${stackedLayout ? 'flex-col' : 'justify-between'}`}>
               <FirstParagraph 
                 description={paragraph} 
                 onNext={paragraphAssigned} 

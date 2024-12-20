@@ -61,7 +61,8 @@ const FirstParagraph = ({ description, onNext, fontSize, onTranslate, translatio
   };
 
   return (
-    <div className={`w-full md:w-[48%] border border-black p-2 m-2 rounded mx-auto overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px` }}>
+    <div className={`w-full sm:w-full md:w-[48%] border border-black p-2 m-2 sm:p-0 md:p-1 rounded mx-auto overflow-auto expand-animation ${nightMode ? 'night-mode' : ''}`} style={{ fontSize: `${fontSize}px` }}>
+
       <div className="flex mb-2">
         <div className="small-font">First Paragraph</div>
       </div>
