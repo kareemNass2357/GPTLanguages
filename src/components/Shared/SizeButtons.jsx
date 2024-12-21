@@ -3,15 +3,14 @@ import AddIcon from '@mui/icons-material/Add'; // Import the Add icon from Mater
 import RemoveIcon from '@mui/icons-material/Remove'; // Import the Remove icon from Material-UI
 
 const SizeButton = ({ onClick, icon }) => (
-  <button onClick={onClick} className="size-btn px-1 py-1 bg-gray-300 rounded w-6 h-6 flex items-center justify-center text-sm">
+  <button onClick={onClick} className="size-btn px-1 py-1 !bg-gray-300 rounded w-6 h-6 flex items-center justify-center text-sm">
     {icon}
   </button>
 );
-
 /**
  * SizeButtons component
  * 
- * Props:
+ * Props: 
  * - fontSize: The current font size
  * - setFontSize: Function to update the font size
  * - nightMode: Boolean indicating if night mode is enabled
