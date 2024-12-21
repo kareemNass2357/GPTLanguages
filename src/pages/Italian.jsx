@@ -78,10 +78,16 @@ const Italian = () => {
       alert('Title is required to save.');
       return;
     }
+    const username = prompt('Enter your username:');
+    if (!username) {
+      alert('Username is required to save.');
+      return;
+    }
     const dataToSave = {
       paragraph,
       translation,
       title,
+      username,
       timestamp: new Date().toISOString(),
     };
     try {
