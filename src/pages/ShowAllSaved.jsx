@@ -11,15 +11,21 @@ const ShowAllSaved = () => {
   const handleSearch = async () => {
     setLoading(true);
     setError('');
+    console.log('Username entered:', username);
     try {
+      console.log('Sending request to:', `${import.meta.env.VITE_DB_SERVER_URL}/savedData`);
       const response = await axios.get(`${import.meta.env.VITE_DB_SERVER_URL}/savedData`);
-      const entries = response.data.filter(entry => entry.username.toLowerCase() === username.toLowerCase());
+      console.log('Response received:', response);
+      const entries = response.data.filter(entry => entry.username && entry.username.toLowerCase() === username.toLowerCase());
+      console.log('Filtered entries:', entries);
       setSavedEntries(entries);
       setFilteredEntries(entries);
     } catch (error) {
+      console.error('Error fetching saved entries:', error);
       setError('Error fetching saved entries. Please try again.');
     } finally {
       setLoading(false);
+      console.log('Loading state set to false');
     }
   };
 
@@ -56,6 +62,9 @@ const ShowAllSaved = () => {
             </li>
           ))}
         </ul>
+      )}
+      {!loading && !error && filteredEntries.length === 0 && (
+        <p>No entries found for the username: {username}</p>
       )}
     </div>
   );
