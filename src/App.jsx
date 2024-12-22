@@ -7,6 +7,7 @@ import {
 import MainLayout from './layouts/MainLayout';
 import Italian from './pages/Italian';
 import ShowAllSaved from './pages/ShowAllSaved';
+import FabricYouTube from './pages/FabricYouTube';
 import React from 'react';
 import { ItalianProvider } from './context/ItalianContext';
 import './styles.css';
@@ -17,6 +18,7 @@ const App = () => {
       <Route path='/' element={<MainLayout />}>
         <Route index element={<Italian />} />
         <Route path='saved' element={<ShowAllSaved />} />
+        <Route path='fabricyoutube' element={<FabricYouTube />} />
       </Route>
     )
   );
