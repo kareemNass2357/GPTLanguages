@@ -1,27 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const FabricYouTube = () => {
   const [inputValue, setInputValue] = useState('');
   const [isYouTube, setIsYouTube] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null);
+  const [serverAlive, setServerAlive] = useState(false);
   const hostname = 'localhost';
   const port = 5006;
   const apiUrl = `http://${hostname}:${port}/extract_wisdom`;
 
-  const getYouTube = async () => {
-    try {
-      let url = inputValue;
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        url = 'https://' + url;
+  useEffect(() => {
+    const checkServerAlive = async () => {
+      try {
+        const res = await axios.get(`http://${hostname}:${port}/alive`);
+        setServerAlive(res.status === 200);
+      } catch (error) {
+        setServerAlive(false);
       }
-      const response = await axios.post(apiUrl, { url });
-      alert('URL submitted successfully: ' + response.data);
+    };
+    checkServerAlive();
+  }, [hostname, port]);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setResponse(null);
+    try {
+      let body = {};
+      if (isYouTube) {
+        let url = inputValue;
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+          url = 'https://' + url;
+        }
+        body = { url };
+      } else {
+        body = { input_text: inputValue };
+      }
+      console.log('Sending request to:', apiUrl, 'with body:', body);
+      const res = await axios.post(apiUrl, body);
+      console.log('Response received:', res.data);
+      setResponse(res.data);
+      alert('Submitted successfully: ' + res.data);
     } catch (error) {
-      alert('Error submitting URL: ' + error.message);
+      console.error('Error submitting:', error.message);
+      alert('Error submitting: ' + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSwitchChange = () => {
+  const toggleInputType = () => {
     setIsYouTube(!isYouTube);
   };
 
@@ -31,30 +60,42 @@ const FabricYouTube = () => {
       <div className="flex items-center mb-4">
         <span className="mr-2">Input</span>
         <label className="switch">
-          <input type="checkbox" checked={isYouTube} onChange={handleSwitchChange} />
+          <input type="checkbox" checked={isYouTube} onChange={toggleInputType} />
           <span className="slider round"></span>
         </label>
         <span className="ml-2">YouTube</span>
       </div>
-      {isYouTube ? (
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Enter YouTube URL"
-          className="p-2 border border-gray-300 rounded mr-2 w-full"
-        />
+      {serverAlive ? (
+        <>
+          {isYouTube ? (
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Enter YouTube URL"
+              className="p-2 border border-gray-300 rounded mr-2 w-full"
+            />
+          ) : (
+            <textarea
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Enter Input"
+              className="p-2 border border-gray-300 rounded mr-2 w-full h-64"
+            />
+          )}
+          <button onClick={handleSubmit} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" disabled={loading}>
+            {loading ? 'Loading...' : 'Submit'}
+          </button>
+          {response && (
+            <div className="mt-4 p-4 border border-gray-300 rounded">
+              <h2 className="text-xl font-bold mb-2">Response:</h2>
+              <pre>{JSON.stringify(response, null, 2)}</pre>
+            </div>
+          )}
+        </>
       ) : (
-        <textarea
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Enter Input"
-          className="p-2 border border-gray-300 rounded mr-2 w-full h-64"
-        />
+        <div className="text-red-500">Server is not alive</div>
       )}
-      <button onClick={getYouTube} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-        Submit
-      </button>
       <style jsx>{`
         .switch {
           position: relative;
