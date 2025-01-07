@@ -19,7 +19,7 @@ const FabricYouTube = () => {
 
   // Adjust these to match your back-end
   const hostname = 'localhost';
-  const port = 5000;
+  const port = 5052;
 
   // Check if backend is alive
   useEffect(() => {
