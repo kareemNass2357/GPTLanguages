@@ -29,6 +29,10 @@ const Navbar = () => {
                 <NavLink to='/fabricyoutube' className={linkClass}>
                   Fabric YouTube
                 </NavLink>
+                <NavLink to='/inputs' className={linkClass}>
+                  Inputs
+                </NavLink>
+                
                 {/* <NavLink to='/jobs' className={linkClass}>
                   Jobs
                 </NavLink>
