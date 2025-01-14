@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const FabricYouTube = () => {
   // State for text or YouTube input
@@ -27,7 +26,7 @@ const FabricYouTube = () => {
       const url = `http://${hostname}:${port}/health`;
       console.log('Checking server health at:', url);
       try {
-        const res = await axios.get(url);
+        const res = await fetch(url);
         setServerAlive(res.status === 200);
       } catch (error) {
         console.error('Error checking server health:', error.message);
@@ -86,10 +85,18 @@ const FabricYouTube = () => {
       const { endpoint, body } = getEndpointAndBody();
       console.log('Sending request to:', endpoint, 'with body:', body);
 
-      const res = await axios.post(endpoint, body);
-      console.log('Response received:', res.data);
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
 
-      setResponse(res.data);
+      const data = await res.json();
+      console.log('Response received:', data);
+
+      setResponse(data);
       alert('Submitted successfully');
     } catch (error) {
       console.error('Error submitting:', error.message);
@@ -103,7 +110,7 @@ const FabricYouTube = () => {
     try {
       const url = `http://${hostname}:${port}/reset`;
       console.log('Sending reset request to:', url);
-      await axios.post(url);
+      await fetch(url, { method: 'POST' });
       alert('Server reset successfully');
     } catch (error) {
       console.error('Error resetting server:', error.message);
@@ -190,7 +197,7 @@ const FabricYouTube = () => {
       </div>
 
       {/* 7. STYLING FOR SWITCHES */}
-      <style jsx>{`
+      <style>{`
         .switch {
           position: relative;
           display: inline-block;
