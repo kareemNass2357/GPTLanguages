@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown'; // Corrected import statement
+import '../styles/markdownStyles.css'; // Import the custom CSS
+
 
 const FabricYouTube = () => {
   // State for text or YouTube input
@@ -18,7 +21,7 @@ const FabricYouTube = () => {
 
   // Adjust these to match your back-end
   const hostname = 'localhost';
-  const port = 5052;
+  const port = 5053;
 
   // Check if backend is alive
   useEffect(() => {
@@ -97,7 +100,7 @@ const FabricYouTube = () => {
       console.log('Response received:', data);
 
       setResponse(data);
-      alert('Submitted successfully');
+      // Removed alert for successful submission
     } catch (error) {
       console.error('Error submitting:', error.message);
       alert('Error submitting: ' + error.message);
@@ -105,13 +108,18 @@ const FabricYouTube = () => {
       setLoading(false);
     }
   };
+  const renderMd = (message) =>(
+    <div className='markdown-body'>
+    <ReactMarkdown>{message}</ReactMarkdown> ;
+    </div>
+  );
 
   const handleReset = async () => {
     try {
       const url = `http://${hostname}:${port}/reset`;
       console.log('Sending reset request to:', url);
       await fetch(url, { method: 'POST' });
-      alert('Server reset successfully');
+      // Removed alert for successful reset
     } catch (error) {
       console.error('Error resetting server:', error.message);
       alert('Error resetting server: ' + error.message);
@@ -185,11 +193,11 @@ const FabricYouTube = () => {
 
       {/* 5. RENDER RESPONSE */}
       {response && (
-        <div className="mt-4 p-4 border border-gray-300 rounded">
-          <h2 className="text-xl font-bold mb-2">Response:</h2>
-          <pre>{JSON.stringify(response, null, 2)}</pre>
-        </div>
-      )}
+  <div className="mt-4 p-4 border border-gray-300 rounded">
+    <h2 className="text-xl font-bold mb-2">Response:</h2>
+    {renderMd(response.message)}
+  </div>
+)}
 
       {/* 6. SERVER HEALTH STATUS */}
       <div className={`mt-4 ${serverAlive ? 'text-green-500' : 'text-red-500'}`}>
